@@ -1,0 +1,1 @@
+/usr/bin/cc -O3 -DNDEBUG CMakeFiles/test_audio.dir/tests/test_audio.c.o -o test_audio  libdistiller_c11.a 

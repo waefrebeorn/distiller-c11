@@ -71,6 +71,10 @@ all: CMakeFiles/test_eink.dir/all
 all: CMakeFiles/test_compose.dir/all
 all: CMakeFiles/test_sam.dir/all
 all: CMakeFiles/test_einkdrv.dir/all
+all: CMakeFiles/test_audio.dir/all
+all: CMakeFiles/test_registry.dir/all
+all: CMakeFiles/test_ai.dir/all
+all: CMakeFiles/test_gui.dir/all
 all: CMakeFiles/bench_eink.dir/all
 all: CMakeFiles/bench_both.dir/all
 .PHONY : all
@@ -88,6 +92,10 @@ clean: CMakeFiles/test_eink.dir/clean
 clean: CMakeFiles/test_compose.dir/clean
 clean: CMakeFiles/test_sam.dir/clean
 clean: CMakeFiles/test_einkdrv.dir/clean
+clean: CMakeFiles/test_audio.dir/clean
+clean: CMakeFiles/test_registry.dir/clean
+clean: CMakeFiles/test_ai.dir/clean
+clean: CMakeFiles/test_gui.dir/clean
 clean: CMakeFiles/bench_eink.dir/clean
 clean: CMakeFiles/bench_both.dir/clean
 .PHONY : clean
@@ -99,12 +107,12 @@ clean: CMakeFiles/bench_both.dir/clean
 CMakeFiles/distiller_c11.dir/all:
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/distiller_c11.dir/build.make CMakeFiles/distiller_c11.dir/depend
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/distiller_c11.dir/build.make CMakeFiles/distiller_c11.dir/build
-	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --progress-dir=/home/wubu/distiller-c11/build/CMakeFiles --progress-num=5,6,7,8,9,10,11,12 "Built target distiller_c11"
+	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --progress-dir=/home/wubu/distiller-c11/build/CMakeFiles --progress-num=5,6,7,8,9,10,11,12,13,14,15,16 "Built target distiller_c11"
 .PHONY : CMakeFiles/distiller_c11.dir/all
 
 # Build rule for subdir invocation for target.
 CMakeFiles/distiller_c11.dir/rule: cmake_check_build_system
-	$(CMAKE_COMMAND) -E cmake_progress_start /home/wubu/distiller-c11/build/CMakeFiles 8
+	$(CMAKE_COMMAND) -E cmake_progress_start /home/wubu/distiller-c11/build/CMakeFiles 12
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/Makefile2 CMakeFiles/distiller_c11.dir/all
 	$(CMAKE_COMMAND) -E cmake_progress_start /home/wubu/distiller-c11/build/CMakeFiles 0
 .PHONY : CMakeFiles/distiller_c11.dir/rule
@@ -125,12 +133,12 @@ CMakeFiles/distiller_c11.dir/clean:
 CMakeFiles/test_dither.dir/all: CMakeFiles/distiller_c11.dir/all
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/test_dither.dir/build.make CMakeFiles/test_dither.dir/depend
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/test_dither.dir/build.make CMakeFiles/test_dither.dir/build
-	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --progress-dir=/home/wubu/distiller-c11/build/CMakeFiles --progress-num=15,16 "Built target test_dither"
+	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --progress-dir=/home/wubu/distiller-c11/build/CMakeFiles --progress-num=23,24 "Built target test_dither"
 .PHONY : CMakeFiles/test_dither.dir/all
 
 # Build rule for subdir invocation for target.
 CMakeFiles/test_dither.dir/rule: cmake_check_build_system
-	$(CMAKE_COMMAND) -E cmake_progress_start /home/wubu/distiller-c11/build/CMakeFiles 10
+	$(CMAKE_COMMAND) -E cmake_progress_start /home/wubu/distiller-c11/build/CMakeFiles 14
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/Makefile2 CMakeFiles/test_dither.dir/all
 	$(CMAKE_COMMAND) -E cmake_progress_start /home/wubu/distiller-c11/build/CMakeFiles 0
 .PHONY : CMakeFiles/test_dither.dir/rule
@@ -151,12 +159,12 @@ CMakeFiles/test_dither.dir/clean:
 CMakeFiles/test_pack.dir/all: CMakeFiles/distiller_c11.dir/all
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/test_pack.dir/build.make CMakeFiles/test_pack.dir/depend
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/test_pack.dir/build.make CMakeFiles/test_pack.dir/build
-	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --progress-dir=/home/wubu/distiller-c11/build/CMakeFiles --progress-num=23,24 "Built target test_pack"
+	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --progress-dir=/home/wubu/distiller-c11/build/CMakeFiles --progress-num=33,34 "Built target test_pack"
 .PHONY : CMakeFiles/test_pack.dir/all
 
 # Build rule for subdir invocation for target.
 CMakeFiles/test_pack.dir/rule: cmake_check_build_system
-	$(CMAKE_COMMAND) -E cmake_progress_start /home/wubu/distiller-c11/build/CMakeFiles 10
+	$(CMAKE_COMMAND) -E cmake_progress_start /home/wubu/distiller-c11/build/CMakeFiles 14
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/Makefile2 CMakeFiles/test_pack.dir/all
 	$(CMAKE_COMMAND) -E cmake_progress_start /home/wubu/distiller-c11/build/CMakeFiles 0
 .PHONY : CMakeFiles/test_pack.dir/rule
@@ -177,12 +185,12 @@ CMakeFiles/test_pack.dir/clean:
 CMakeFiles/test_image.dir/all: CMakeFiles/distiller_c11.dir/all
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/test_image.dir/build.make CMakeFiles/test_image.dir/depend
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/test_image.dir/build.make CMakeFiles/test_image.dir/build
-	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --progress-dir=/home/wubu/distiller-c11/build/CMakeFiles --progress-num=21,22 "Built target test_image"
+	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --progress-dir=/home/wubu/distiller-c11/build/CMakeFiles --progress-num=31,32 "Built target test_image"
 .PHONY : CMakeFiles/test_image.dir/all
 
 # Build rule for subdir invocation for target.
 CMakeFiles/test_image.dir/rule: cmake_check_build_system
-	$(CMAKE_COMMAND) -E cmake_progress_start /home/wubu/distiller-c11/build/CMakeFiles 10
+	$(CMAKE_COMMAND) -E cmake_progress_start /home/wubu/distiller-c11/build/CMakeFiles 14
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/Makefile2 CMakeFiles/test_image.dir/all
 	$(CMAKE_COMMAND) -E cmake_progress_start /home/wubu/distiller-c11/build/CMakeFiles 0
 .PHONY : CMakeFiles/test_image.dir/rule
@@ -203,12 +211,12 @@ CMakeFiles/test_image.dir/clean:
 CMakeFiles/test_eink.dir/all: CMakeFiles/distiller_c11.dir/all
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/test_eink.dir/build.make CMakeFiles/test_eink.dir/depend
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/test_eink.dir/build.make CMakeFiles/test_eink.dir/build
-	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --progress-dir=/home/wubu/distiller-c11/build/CMakeFiles --progress-num=17,18 "Built target test_eink"
+	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --progress-dir=/home/wubu/distiller-c11/build/CMakeFiles --progress-num=25,26 "Built target test_eink"
 .PHONY : CMakeFiles/test_eink.dir/all
 
 # Build rule for subdir invocation for target.
 CMakeFiles/test_eink.dir/rule: cmake_check_build_system
-	$(CMAKE_COMMAND) -E cmake_progress_start /home/wubu/distiller-c11/build/CMakeFiles 10
+	$(CMAKE_COMMAND) -E cmake_progress_start /home/wubu/distiller-c11/build/CMakeFiles 14
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/Makefile2 CMakeFiles/test_eink.dir/all
 	$(CMAKE_COMMAND) -E cmake_progress_start /home/wubu/distiller-c11/build/CMakeFiles 0
 .PHONY : CMakeFiles/test_eink.dir/rule
@@ -229,12 +237,12 @@ CMakeFiles/test_eink.dir/clean:
 CMakeFiles/test_compose.dir/all: CMakeFiles/distiller_c11.dir/all
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/test_compose.dir/build.make CMakeFiles/test_compose.dir/depend
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/test_compose.dir/build.make CMakeFiles/test_compose.dir/build
-	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --progress-dir=/home/wubu/distiller-c11/build/CMakeFiles --progress-num=13,14 "Built target test_compose"
+	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --progress-dir=/home/wubu/distiller-c11/build/CMakeFiles --progress-num=21,22 "Built target test_compose"
 .PHONY : CMakeFiles/test_compose.dir/all
 
 # Build rule for subdir invocation for target.
 CMakeFiles/test_compose.dir/rule: cmake_check_build_system
-	$(CMAKE_COMMAND) -E cmake_progress_start /home/wubu/distiller-c11/build/CMakeFiles 10
+	$(CMAKE_COMMAND) -E cmake_progress_start /home/wubu/distiller-c11/build/CMakeFiles 14
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/Makefile2 CMakeFiles/test_compose.dir/all
 	$(CMAKE_COMMAND) -E cmake_progress_start /home/wubu/distiller-c11/build/CMakeFiles 0
 .PHONY : CMakeFiles/test_compose.dir/rule
@@ -255,12 +263,12 @@ CMakeFiles/test_compose.dir/clean:
 CMakeFiles/test_sam.dir/all: CMakeFiles/distiller_c11.dir/all
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/test_sam.dir/build.make CMakeFiles/test_sam.dir/depend
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/test_sam.dir/build.make CMakeFiles/test_sam.dir/build
-	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --progress-dir=/home/wubu/distiller-c11/build/CMakeFiles --progress-num=25,26 "Built target test_sam"
+	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --progress-dir=/home/wubu/distiller-c11/build/CMakeFiles --progress-num=37,38 "Built target test_sam"
 .PHONY : CMakeFiles/test_sam.dir/all
 
 # Build rule for subdir invocation for target.
 CMakeFiles/test_sam.dir/rule: cmake_check_build_system
-	$(CMAKE_COMMAND) -E cmake_progress_start /home/wubu/distiller-c11/build/CMakeFiles 10
+	$(CMAKE_COMMAND) -E cmake_progress_start /home/wubu/distiller-c11/build/CMakeFiles 14
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/Makefile2 CMakeFiles/test_sam.dir/all
 	$(CMAKE_COMMAND) -E cmake_progress_start /home/wubu/distiller-c11/build/CMakeFiles 0
 .PHONY : CMakeFiles/test_sam.dir/rule
@@ -281,12 +289,12 @@ CMakeFiles/test_sam.dir/clean:
 CMakeFiles/test_einkdrv.dir/all: CMakeFiles/distiller_c11.dir/all
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/test_einkdrv.dir/build.make CMakeFiles/test_einkdrv.dir/depend
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/test_einkdrv.dir/build.make CMakeFiles/test_einkdrv.dir/build
-	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --progress-dir=/home/wubu/distiller-c11/build/CMakeFiles --progress-num=19,20 "Built target test_einkdrv"
+	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --progress-dir=/home/wubu/distiller-c11/build/CMakeFiles --progress-num=27,28 "Built target test_einkdrv"
 .PHONY : CMakeFiles/test_einkdrv.dir/all
 
 # Build rule for subdir invocation for target.
 CMakeFiles/test_einkdrv.dir/rule: cmake_check_build_system
-	$(CMAKE_COMMAND) -E cmake_progress_start /home/wubu/distiller-c11/build/CMakeFiles 10
+	$(CMAKE_COMMAND) -E cmake_progress_start /home/wubu/distiller-c11/build/CMakeFiles 14
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/Makefile2 CMakeFiles/test_einkdrv.dir/all
 	$(CMAKE_COMMAND) -E cmake_progress_start /home/wubu/distiller-c11/build/CMakeFiles 0
 .PHONY : CMakeFiles/test_einkdrv.dir/rule
@@ -301,6 +309,110 @@ CMakeFiles/test_einkdrv.dir/clean:
 .PHONY : CMakeFiles/test_einkdrv.dir/clean
 
 #=============================================================================
+# Target rules for target CMakeFiles/test_audio.dir
+
+# All Build rule for target.
+CMakeFiles/test_audio.dir/all: CMakeFiles/distiller_c11.dir/all
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/test_audio.dir/build.make CMakeFiles/test_audio.dir/depend
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/test_audio.dir/build.make CMakeFiles/test_audio.dir/build
+	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --progress-dir=/home/wubu/distiller-c11/build/CMakeFiles --progress-num=19,20 "Built target test_audio"
+.PHONY : CMakeFiles/test_audio.dir/all
+
+# Build rule for subdir invocation for target.
+CMakeFiles/test_audio.dir/rule: cmake_check_build_system
+	$(CMAKE_COMMAND) -E cmake_progress_start /home/wubu/distiller-c11/build/CMakeFiles 14
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/Makefile2 CMakeFiles/test_audio.dir/all
+	$(CMAKE_COMMAND) -E cmake_progress_start /home/wubu/distiller-c11/build/CMakeFiles 0
+.PHONY : CMakeFiles/test_audio.dir/rule
+
+# Convenience name for target.
+test_audio: CMakeFiles/test_audio.dir/rule
+.PHONY : test_audio
+
+# clean rule for target.
+CMakeFiles/test_audio.dir/clean:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/test_audio.dir/build.make CMakeFiles/test_audio.dir/clean
+.PHONY : CMakeFiles/test_audio.dir/clean
+
+#=============================================================================
+# Target rules for target CMakeFiles/test_registry.dir
+
+# All Build rule for target.
+CMakeFiles/test_registry.dir/all: CMakeFiles/distiller_c11.dir/all
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/test_registry.dir/build.make CMakeFiles/test_registry.dir/depend
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/test_registry.dir/build.make CMakeFiles/test_registry.dir/build
+	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --progress-dir=/home/wubu/distiller-c11/build/CMakeFiles --progress-num=35,36 "Built target test_registry"
+.PHONY : CMakeFiles/test_registry.dir/all
+
+# Build rule for subdir invocation for target.
+CMakeFiles/test_registry.dir/rule: cmake_check_build_system
+	$(CMAKE_COMMAND) -E cmake_progress_start /home/wubu/distiller-c11/build/CMakeFiles 14
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/Makefile2 CMakeFiles/test_registry.dir/all
+	$(CMAKE_COMMAND) -E cmake_progress_start /home/wubu/distiller-c11/build/CMakeFiles 0
+.PHONY : CMakeFiles/test_registry.dir/rule
+
+# Convenience name for target.
+test_registry: CMakeFiles/test_registry.dir/rule
+.PHONY : test_registry
+
+# clean rule for target.
+CMakeFiles/test_registry.dir/clean:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/test_registry.dir/build.make CMakeFiles/test_registry.dir/clean
+.PHONY : CMakeFiles/test_registry.dir/clean
+
+#=============================================================================
+# Target rules for target CMakeFiles/test_ai.dir
+
+# All Build rule for target.
+CMakeFiles/test_ai.dir/all: CMakeFiles/distiller_c11.dir/all
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/test_ai.dir/build.make CMakeFiles/test_ai.dir/depend
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/test_ai.dir/build.make CMakeFiles/test_ai.dir/build
+	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --progress-dir=/home/wubu/distiller-c11/build/CMakeFiles --progress-num=17,18 "Built target test_ai"
+.PHONY : CMakeFiles/test_ai.dir/all
+
+# Build rule for subdir invocation for target.
+CMakeFiles/test_ai.dir/rule: cmake_check_build_system
+	$(CMAKE_COMMAND) -E cmake_progress_start /home/wubu/distiller-c11/build/CMakeFiles 14
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/Makefile2 CMakeFiles/test_ai.dir/all
+	$(CMAKE_COMMAND) -E cmake_progress_start /home/wubu/distiller-c11/build/CMakeFiles 0
+.PHONY : CMakeFiles/test_ai.dir/rule
+
+# Convenience name for target.
+test_ai: CMakeFiles/test_ai.dir/rule
+.PHONY : test_ai
+
+# clean rule for target.
+CMakeFiles/test_ai.dir/clean:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/test_ai.dir/build.make CMakeFiles/test_ai.dir/clean
+.PHONY : CMakeFiles/test_ai.dir/clean
+
+#=============================================================================
+# Target rules for target CMakeFiles/test_gui.dir
+
+# All Build rule for target.
+CMakeFiles/test_gui.dir/all: CMakeFiles/distiller_c11.dir/all
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/test_gui.dir/build.make CMakeFiles/test_gui.dir/depend
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/test_gui.dir/build.make CMakeFiles/test_gui.dir/build
+	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --progress-dir=/home/wubu/distiller-c11/build/CMakeFiles --progress-num=29,30 "Built target test_gui"
+.PHONY : CMakeFiles/test_gui.dir/all
+
+# Build rule for subdir invocation for target.
+CMakeFiles/test_gui.dir/rule: cmake_check_build_system
+	$(CMAKE_COMMAND) -E cmake_progress_start /home/wubu/distiller-c11/build/CMakeFiles 14
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/Makefile2 CMakeFiles/test_gui.dir/all
+	$(CMAKE_COMMAND) -E cmake_progress_start /home/wubu/distiller-c11/build/CMakeFiles 0
+.PHONY : CMakeFiles/test_gui.dir/rule
+
+# Convenience name for target.
+test_gui: CMakeFiles/test_gui.dir/rule
+.PHONY : test_gui
+
+# clean rule for target.
+CMakeFiles/test_gui.dir/clean:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/test_gui.dir/build.make CMakeFiles/test_gui.dir/clean
+.PHONY : CMakeFiles/test_gui.dir/clean
+
+#=============================================================================
 # Target rules for target CMakeFiles/bench_eink.dir
 
 # All Build rule for target.
@@ -312,7 +424,7 @@ CMakeFiles/bench_eink.dir/all: CMakeFiles/distiller_c11.dir/all
 
 # Build rule for subdir invocation for target.
 CMakeFiles/bench_eink.dir/rule: cmake_check_build_system
-	$(CMAKE_COMMAND) -E cmake_progress_start /home/wubu/distiller-c11/build/CMakeFiles 10
+	$(CMAKE_COMMAND) -E cmake_progress_start /home/wubu/distiller-c11/build/CMakeFiles 14
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/Makefile2 CMakeFiles/bench_eink.dir/all
 	$(CMAKE_COMMAND) -E cmake_progress_start /home/wubu/distiller-c11/build/CMakeFiles 0
 .PHONY : CMakeFiles/bench_eink.dir/rule
@@ -338,7 +450,7 @@ CMakeFiles/bench_both.dir/all: CMakeFiles/distiller_c11.dir/all
 
 # Build rule for subdir invocation for target.
 CMakeFiles/bench_both.dir/rule: cmake_check_build_system
-	$(CMAKE_COMMAND) -E cmake_progress_start /home/wubu/distiller-c11/build/CMakeFiles 10
+	$(CMAKE_COMMAND) -E cmake_progress_start /home/wubu/distiller-c11/build/CMakeFiles 14
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/Makefile2 CMakeFiles/bench_both.dir/all
 	$(CMAKE_COMMAND) -E cmake_progress_start /home/wubu/distiller-c11/build/CMakeFiles 0
 .PHONY : CMakeFiles/bench_both.dir/rule

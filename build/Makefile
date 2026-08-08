@@ -231,6 +231,58 @@ test_einkdrv/fast:
 .PHONY : test_einkdrv/fast
 
 #=============================================================================
+# Target rules for targets named test_audio
+
+# Build rule for target.
+test_audio: cmake_check_build_system
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/Makefile2 test_audio
+.PHONY : test_audio
+
+# fast build rule for target.
+test_audio/fast:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/test_audio.dir/build.make CMakeFiles/test_audio.dir/build
+.PHONY : test_audio/fast
+
+#=============================================================================
+# Target rules for targets named test_registry
+
+# Build rule for target.
+test_registry: cmake_check_build_system
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/Makefile2 test_registry
+.PHONY : test_registry
+
+# fast build rule for target.
+test_registry/fast:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/test_registry.dir/build.make CMakeFiles/test_registry.dir/build
+.PHONY : test_registry/fast
+
+#=============================================================================
+# Target rules for targets named test_ai
+
+# Build rule for target.
+test_ai: cmake_check_build_system
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/Makefile2 test_ai
+.PHONY : test_ai
+
+# fast build rule for target.
+test_ai/fast:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/test_ai.dir/build.make CMakeFiles/test_ai.dir/build
+.PHONY : test_ai/fast
+
+#=============================================================================
+# Target rules for targets named test_gui
+
+# Build rule for target.
+test_gui: cmake_check_build_system
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/Makefile2 test_gui
+.PHONY : test_gui
+
+# fast build rule for target.
+test_gui/fast:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/test_gui.dir/build.make CMakeFiles/test_gui.dir/build
+.PHONY : test_gui/fast
+
+#=============================================================================
 # Target rules for targets named bench_eink
 
 # Build rule for target.
@@ -255,6 +307,30 @@ bench_both: cmake_check_build_system
 bench_both/fast:
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/bench_both.dir/build.make CMakeFiles/bench_both.dir/build
 .PHONY : bench_both/fast
+
+src/ai/ai.o: src/ai/ai.c.o
+.PHONY : src/ai/ai.o
+
+# target to build an object file
+src/ai/ai.c.o:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/distiller_c11.dir/build.make CMakeFiles/distiller_c11.dir/src/ai/ai.c.o
+.PHONY : src/ai/ai.c.o
+
+src/ai/ai.i: src/ai/ai.c.i
+.PHONY : src/ai/ai.i
+
+# target to preprocess a source file
+src/ai/ai.c.i:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/distiller_c11.dir/build.make CMakeFiles/distiller_c11.dir/src/ai/ai.c.i
+.PHONY : src/ai/ai.c.i
+
+src/ai/ai.s: src/ai/ai.c.s
+.PHONY : src/ai/ai.s
+
+# target to generate assembly for a file
+src/ai/ai.c.s:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/distiller_c11.dir/build.make CMakeFiles/distiller_c11.dir/src/ai/ai.c.s
+.PHONY : src/ai/ai.c.s
 
 src/compose/compose.o: src/compose/compose.c.o
 .PHONY : src/compose/compose.o
@@ -327,6 +403,30 @@ src/eink/eink.s: src/eink/eink.c.s
 src/eink/eink.c.s:
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/distiller_c11.dir/build.make CMakeFiles/distiller_c11.dir/src/eink/eink.c.s
 .PHONY : src/eink/eink.c.s
+
+src/hw/audio/audio.o: src/hw/audio/audio.c.o
+.PHONY : src/hw/audio/audio.o
+
+# target to build an object file
+src/hw/audio/audio.c.o:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/distiller_c11.dir/build.make CMakeFiles/distiller_c11.dir/src/hw/audio/audio.c.o
+.PHONY : src/hw/audio/audio.c.o
+
+src/hw/audio/audio.i: src/hw/audio/audio.c.i
+.PHONY : src/hw/audio/audio.i
+
+# target to preprocess a source file
+src/hw/audio/audio.c.i:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/distiller_c11.dir/build.make CMakeFiles/distiller_c11.dir/src/hw/audio/audio.c.i
+.PHONY : src/hw/audio/audio.c.i
+
+src/hw/audio/audio.s: src/hw/audio/audio.c.s
+.PHONY : src/hw/audio/audio.s
+
+# target to generate assembly for a file
+src/hw/audio/audio.c.s:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/distiller_c11.dir/build.make CMakeFiles/distiller_c11.dir/src/hw/audio/audio.c.s
+.PHONY : src/hw/audio/audio.c.s
 
 src/hw/einkdrv/einkdrv.o: src/hw/einkdrv/einkdrv.c.o
 .PHONY : src/hw/einkdrv/einkdrv.o
@@ -424,6 +524,102 @@ src/pack/pack.c.s:
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/distiller_c11.dir/build.make CMakeFiles/distiller_c11.dir/src/pack/pack.c.s
 .PHONY : src/pack/pack.c.s
 
+src/ui/gui/gui.o: src/ui/gui/gui.c.o
+.PHONY : src/ui/gui/gui.o
+
+# target to build an object file
+src/ui/gui/gui.c.o:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/distiller_c11.dir/build.make CMakeFiles/distiller_c11.dir/src/ui/gui/gui.c.o
+.PHONY : src/ui/gui/gui.c.o
+
+src/ui/gui/gui.i: src/ui/gui/gui.c.i
+.PHONY : src/ui/gui/gui.i
+
+# target to preprocess a source file
+src/ui/gui/gui.c.i:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/distiller_c11.dir/build.make CMakeFiles/distiller_c11.dir/src/ui/gui/gui.c.i
+.PHONY : src/ui/gui/gui.c.i
+
+src/ui/gui/gui.s: src/ui/gui/gui.c.s
+.PHONY : src/ui/gui/gui.s
+
+# target to generate assembly for a file
+src/ui/gui/gui.c.s:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/distiller_c11.dir/build.make CMakeFiles/distiller_c11.dir/src/ui/gui/gui.c.s
+.PHONY : src/ui/gui/gui.c.s
+
+src/ui/registry/registry.o: src/ui/registry/registry.c.o
+.PHONY : src/ui/registry/registry.o
+
+# target to build an object file
+src/ui/registry/registry.c.o:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/distiller_c11.dir/build.make CMakeFiles/distiller_c11.dir/src/ui/registry/registry.c.o
+.PHONY : src/ui/registry/registry.c.o
+
+src/ui/registry/registry.i: src/ui/registry/registry.c.i
+.PHONY : src/ui/registry/registry.i
+
+# target to preprocess a source file
+src/ui/registry/registry.c.i:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/distiller_c11.dir/build.make CMakeFiles/distiller_c11.dir/src/ui/registry/registry.c.i
+.PHONY : src/ui/registry/registry.c.i
+
+src/ui/registry/registry.s: src/ui/registry/registry.c.s
+.PHONY : src/ui/registry/registry.s
+
+# target to generate assembly for a file
+src/ui/registry/registry.c.s:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/distiller_c11.dir/build.make CMakeFiles/distiller_c11.dir/src/ui/registry/registry.c.s
+.PHONY : src/ui/registry/registry.c.s
+
+tests/test_ai.o: tests/test_ai.c.o
+.PHONY : tests/test_ai.o
+
+# target to build an object file
+tests/test_ai.c.o:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/test_ai.dir/build.make CMakeFiles/test_ai.dir/tests/test_ai.c.o
+.PHONY : tests/test_ai.c.o
+
+tests/test_ai.i: tests/test_ai.c.i
+.PHONY : tests/test_ai.i
+
+# target to preprocess a source file
+tests/test_ai.c.i:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/test_ai.dir/build.make CMakeFiles/test_ai.dir/tests/test_ai.c.i
+.PHONY : tests/test_ai.c.i
+
+tests/test_ai.s: tests/test_ai.c.s
+.PHONY : tests/test_ai.s
+
+# target to generate assembly for a file
+tests/test_ai.c.s:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/test_ai.dir/build.make CMakeFiles/test_ai.dir/tests/test_ai.c.s
+.PHONY : tests/test_ai.c.s
+
+tests/test_audio.o: tests/test_audio.c.o
+.PHONY : tests/test_audio.o
+
+# target to build an object file
+tests/test_audio.c.o:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/test_audio.dir/build.make CMakeFiles/test_audio.dir/tests/test_audio.c.o
+.PHONY : tests/test_audio.c.o
+
+tests/test_audio.i: tests/test_audio.c.i
+.PHONY : tests/test_audio.i
+
+# target to preprocess a source file
+tests/test_audio.c.i:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/test_audio.dir/build.make CMakeFiles/test_audio.dir/tests/test_audio.c.i
+.PHONY : tests/test_audio.c.i
+
+tests/test_audio.s: tests/test_audio.c.s
+.PHONY : tests/test_audio.s
+
+# target to generate assembly for a file
+tests/test_audio.c.s:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/test_audio.dir/build.make CMakeFiles/test_audio.dir/tests/test_audio.c.s
+.PHONY : tests/test_audio.c.s
+
 tests/test_compose.o: tests/test_compose.c.o
 .PHONY : tests/test_compose.o
 
@@ -520,6 +716,30 @@ tests/test_einkdrv.c.s:
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/test_einkdrv.dir/build.make CMakeFiles/test_einkdrv.dir/tests/test_einkdrv.c.s
 .PHONY : tests/test_einkdrv.c.s
 
+tests/test_gui.o: tests/test_gui.c.o
+.PHONY : tests/test_gui.o
+
+# target to build an object file
+tests/test_gui.c.o:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/test_gui.dir/build.make CMakeFiles/test_gui.dir/tests/test_gui.c.o
+.PHONY : tests/test_gui.c.o
+
+tests/test_gui.i: tests/test_gui.c.i
+.PHONY : tests/test_gui.i
+
+# target to preprocess a source file
+tests/test_gui.c.i:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/test_gui.dir/build.make CMakeFiles/test_gui.dir/tests/test_gui.c.i
+.PHONY : tests/test_gui.c.i
+
+tests/test_gui.s: tests/test_gui.c.s
+.PHONY : tests/test_gui.s
+
+# target to generate assembly for a file
+tests/test_gui.c.s:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/test_gui.dir/build.make CMakeFiles/test_gui.dir/tests/test_gui.c.s
+.PHONY : tests/test_gui.c.s
+
 tests/test_image.o: tests/test_image.c.o
 .PHONY : tests/test_image.o
 
@@ -567,6 +787,30 @@ tests/test_pack.s: tests/test_pack.c.s
 tests/test_pack.c.s:
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/test_pack.dir/build.make CMakeFiles/test_pack.dir/tests/test_pack.c.s
 .PHONY : tests/test_pack.c.s
+
+tests/test_registry.o: tests/test_registry.c.o
+.PHONY : tests/test_registry.o
+
+# target to build an object file
+tests/test_registry.c.o:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/test_registry.dir/build.make CMakeFiles/test_registry.dir/tests/test_registry.c.o
+.PHONY : tests/test_registry.c.o
+
+tests/test_registry.i: tests/test_registry.c.i
+.PHONY : tests/test_registry.i
+
+# target to preprocess a source file
+tests/test_registry.c.i:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/test_registry.dir/build.make CMakeFiles/test_registry.dir/tests/test_registry.c.i
+.PHONY : tests/test_registry.c.i
+
+tests/test_registry.s: tests/test_registry.c.s
+.PHONY : tests/test_registry.s
+
+# target to generate assembly for a file
+tests/test_registry.c.s:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/test_registry.dir/build.make CMakeFiles/test_registry.dir/tests/test_registry.c.s
+.PHONY : tests/test_registry.c.s
 
 tests/test_sam.o: tests/test_sam.c.o
 .PHONY : tests/test_sam.o
@@ -652,13 +896,20 @@ help:
 	@echo "... bench_both"
 	@echo "... bench_eink"
 	@echo "... distiller_c11"
+	@echo "... test_ai"
+	@echo "... test_audio"
 	@echo "... test_compose"
 	@echo "... test_dither"
 	@echo "... test_eink"
 	@echo "... test_einkdrv"
+	@echo "... test_gui"
 	@echo "... test_image"
 	@echo "... test_pack"
+	@echo "... test_registry"
 	@echo "... test_sam"
+	@echo "... src/ai/ai.o"
+	@echo "... src/ai/ai.i"
+	@echo "... src/ai/ai.s"
 	@echo "... src/compose/compose.o"
 	@echo "... src/compose/compose.i"
 	@echo "... src/compose/compose.s"
@@ -668,6 +919,9 @@ help:
 	@echo "... src/eink/eink.o"
 	@echo "... src/eink/eink.i"
 	@echo "... src/eink/eink.s"
+	@echo "... src/hw/audio/audio.o"
+	@echo "... src/hw/audio/audio.i"
+	@echo "... src/hw/audio/audio.s"
 	@echo "... src/hw/einkdrv/einkdrv.o"
 	@echo "... src/hw/einkdrv/einkdrv.i"
 	@echo "... src/hw/einkdrv/einkdrv.s"
@@ -680,6 +934,18 @@ help:
 	@echo "... src/pack/pack.o"
 	@echo "... src/pack/pack.i"
 	@echo "... src/pack/pack.s"
+	@echo "... src/ui/gui/gui.o"
+	@echo "... src/ui/gui/gui.i"
+	@echo "... src/ui/gui/gui.s"
+	@echo "... src/ui/registry/registry.o"
+	@echo "... src/ui/registry/registry.i"
+	@echo "... src/ui/registry/registry.s"
+	@echo "... tests/test_ai.o"
+	@echo "... tests/test_ai.i"
+	@echo "... tests/test_ai.s"
+	@echo "... tests/test_audio.o"
+	@echo "... tests/test_audio.i"
+	@echo "... tests/test_audio.s"
 	@echo "... tests/test_compose.o"
 	@echo "... tests/test_compose.i"
 	@echo "... tests/test_compose.s"
@@ -692,12 +958,18 @@ help:
 	@echo "... tests/test_einkdrv.o"
 	@echo "... tests/test_einkdrv.i"
 	@echo "... tests/test_einkdrv.s"
+	@echo "... tests/test_gui.o"
+	@echo "... tests/test_gui.i"
+	@echo "... tests/test_gui.s"
 	@echo "... tests/test_image.o"
 	@echo "... tests/test_image.i"
 	@echo "... tests/test_image.s"
 	@echo "... tests/test_pack.o"
 	@echo "... tests/test_pack.i"
 	@echo "... tests/test_pack.s"
+	@echo "... tests/test_registry.o"
+	@echo "... tests/test_registry.i"
+	@echo "... tests/test_registry.s"
 	@echo "... tests/test_sam.o"
 	@echo "... tests/test_sam.i"
 	@echo "... tests/test_sam.s"

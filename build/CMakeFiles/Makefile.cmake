@@ -48,6 +48,10 @@ set(CMAKE_DEPEND_INFO_FILES
   "CMakeFiles/test_compose.dir/DependInfo.cmake"
   "CMakeFiles/test_sam.dir/DependInfo.cmake"
   "CMakeFiles/test_einkdrv.dir/DependInfo.cmake"
+  "CMakeFiles/test_audio.dir/DependInfo.cmake"
+  "CMakeFiles/test_registry.dir/DependInfo.cmake"
+  "CMakeFiles/test_ai.dir/DependInfo.cmake"
+  "CMakeFiles/test_gui.dir/DependInfo.cmake"
   "CMakeFiles/bench_eink.dir/DependInfo.cmake"
   "CMakeFiles/bench_both.dir/DependInfo.cmake"
   )

@@ -1,0 +1,1 @@
+/usr/bin/cc -O3 -DNDEBUG CMakeFiles/test_ai.dir/tests/test_ai.c.o -o test_ai  libdistiller_c11.a 

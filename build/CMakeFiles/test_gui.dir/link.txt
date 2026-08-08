@@ -1,0 +1,1 @@
+/usr/bin/cc -O3 -DNDEBUG CMakeFiles/test_gui.dir/tests/test_gui.c.o -o test_gui  libdistiller_c11.a 

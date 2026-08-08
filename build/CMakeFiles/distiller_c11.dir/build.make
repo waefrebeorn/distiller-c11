@@ -167,6 +167,62 @@ CMakeFiles/distiller_c11.dir/src/hw/einkdrv/einkdrv.c.s: cmake_force
 	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green "Compiling C source to assembly CMakeFiles/distiller_c11.dir/src/hw/einkdrv/einkdrv.c.s"
 	/usr/bin/cc $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -S /home/wubu/distiller-c11/src/hw/einkdrv/einkdrv.c -o CMakeFiles/distiller_c11.dir/src/hw/einkdrv/einkdrv.c.s
 
+CMakeFiles/distiller_c11.dir/src/hw/audio/audio.c.o: CMakeFiles/distiller_c11.dir/flags.make
+CMakeFiles/distiller_c11.dir/src/hw/audio/audio.c.o: /home/wubu/distiller-c11/src/hw/audio/audio.c
+CMakeFiles/distiller_c11.dir/src/hw/audio/audio.c.o: CMakeFiles/distiller_c11.dir/compiler_depend.ts
+	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green --progress-dir=/home/wubu/distiller-c11/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_8) "Building C object CMakeFiles/distiller_c11.dir/src/hw/audio/audio.c.o"
+	/usr/bin/cc $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -MD -MT CMakeFiles/distiller_c11.dir/src/hw/audio/audio.c.o -MF CMakeFiles/distiller_c11.dir/src/hw/audio/audio.c.o.d -o CMakeFiles/distiller_c11.dir/src/hw/audio/audio.c.o -c /home/wubu/distiller-c11/src/hw/audio/audio.c
+
+CMakeFiles/distiller_c11.dir/src/hw/audio/audio.c.i: cmake_force
+	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green "Preprocessing C source to CMakeFiles/distiller_c11.dir/src/hw/audio/audio.c.i"
+	/usr/bin/cc $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -E /home/wubu/distiller-c11/src/hw/audio/audio.c > CMakeFiles/distiller_c11.dir/src/hw/audio/audio.c.i
+
+CMakeFiles/distiller_c11.dir/src/hw/audio/audio.c.s: cmake_force
+	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green "Compiling C source to assembly CMakeFiles/distiller_c11.dir/src/hw/audio/audio.c.s"
+	/usr/bin/cc $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -S /home/wubu/distiller-c11/src/hw/audio/audio.c -o CMakeFiles/distiller_c11.dir/src/hw/audio/audio.c.s
+
+CMakeFiles/distiller_c11.dir/src/ui/registry/registry.c.o: CMakeFiles/distiller_c11.dir/flags.make
+CMakeFiles/distiller_c11.dir/src/ui/registry/registry.c.o: /home/wubu/distiller-c11/src/ui/registry/registry.c
+CMakeFiles/distiller_c11.dir/src/ui/registry/registry.c.o: CMakeFiles/distiller_c11.dir/compiler_depend.ts
+	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green --progress-dir=/home/wubu/distiller-c11/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_9) "Building C object CMakeFiles/distiller_c11.dir/src/ui/registry/registry.c.o"
+	/usr/bin/cc $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -MD -MT CMakeFiles/distiller_c11.dir/src/ui/registry/registry.c.o -MF CMakeFiles/distiller_c11.dir/src/ui/registry/registry.c.o.d -o CMakeFiles/distiller_c11.dir/src/ui/registry/registry.c.o -c /home/wubu/distiller-c11/src/ui/registry/registry.c
+
+CMakeFiles/distiller_c11.dir/src/ui/registry/registry.c.i: cmake_force
+	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green "Preprocessing C source to CMakeFiles/distiller_c11.dir/src/ui/registry/registry.c.i"
+	/usr/bin/cc $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -E /home/wubu/distiller-c11/src/ui/registry/registry.c > CMakeFiles/distiller_c11.dir/src/ui/registry/registry.c.i
+
+CMakeFiles/distiller_c11.dir/src/ui/registry/registry.c.s: cmake_force
+	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green "Compiling C source to assembly CMakeFiles/distiller_c11.dir/src/ui/registry/registry.c.s"
+	/usr/bin/cc $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -S /home/wubu/distiller-c11/src/ui/registry/registry.c -o CMakeFiles/distiller_c11.dir/src/ui/registry/registry.c.s
+
+CMakeFiles/distiller_c11.dir/src/ui/gui/gui.c.o: CMakeFiles/distiller_c11.dir/flags.make
+CMakeFiles/distiller_c11.dir/src/ui/gui/gui.c.o: /home/wubu/distiller-c11/src/ui/gui/gui.c
+CMakeFiles/distiller_c11.dir/src/ui/gui/gui.c.o: CMakeFiles/distiller_c11.dir/compiler_depend.ts
+	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green --progress-dir=/home/wubu/distiller-c11/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_10) "Building C object CMakeFiles/distiller_c11.dir/src/ui/gui/gui.c.o"
+	/usr/bin/cc $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -MD -MT CMakeFiles/distiller_c11.dir/src/ui/gui/gui.c.o -MF CMakeFiles/distiller_c11.dir/src/ui/gui/gui.c.o.d -o CMakeFiles/distiller_c11.dir/src/ui/gui/gui.c.o -c /home/wubu/distiller-c11/src/ui/gui/gui.c
+
+CMakeFiles/distiller_c11.dir/src/ui/gui/gui.c.i: cmake_force
+	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green "Preprocessing C source to CMakeFiles/distiller_c11.dir/src/ui/gui/gui.c.i"
+	/usr/bin/cc $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -E /home/wubu/distiller-c11/src/ui/gui/gui.c > CMakeFiles/distiller_c11.dir/src/ui/gui/gui.c.i
+
+CMakeFiles/distiller_c11.dir/src/ui/gui/gui.c.s: cmake_force
+	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green "Compiling C source to assembly CMakeFiles/distiller_c11.dir/src/ui/gui/gui.c.s"
+	/usr/bin/cc $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -S /home/wubu/distiller-c11/src/ui/gui/gui.c -o CMakeFiles/distiller_c11.dir/src/ui/gui/gui.c.s
+
+CMakeFiles/distiller_c11.dir/src/ai/ai.c.o: CMakeFiles/distiller_c11.dir/flags.make
+CMakeFiles/distiller_c11.dir/src/ai/ai.c.o: /home/wubu/distiller-c11/src/ai/ai.c
+CMakeFiles/distiller_c11.dir/src/ai/ai.c.o: CMakeFiles/distiller_c11.dir/compiler_depend.ts
+	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green --progress-dir=/home/wubu/distiller-c11/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_11) "Building C object CMakeFiles/distiller_c11.dir/src/ai/ai.c.o"
+	/usr/bin/cc $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -MD -MT CMakeFiles/distiller_c11.dir/src/ai/ai.c.o -MF CMakeFiles/distiller_c11.dir/src/ai/ai.c.o.d -o CMakeFiles/distiller_c11.dir/src/ai/ai.c.o -c /home/wubu/distiller-c11/src/ai/ai.c
+
+CMakeFiles/distiller_c11.dir/src/ai/ai.c.i: cmake_force
+	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green "Preprocessing C source to CMakeFiles/distiller_c11.dir/src/ai/ai.c.i"
+	/usr/bin/cc $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -E /home/wubu/distiller-c11/src/ai/ai.c > CMakeFiles/distiller_c11.dir/src/ai/ai.c.i
+
+CMakeFiles/distiller_c11.dir/src/ai/ai.c.s: cmake_force
+	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green "Compiling C source to assembly CMakeFiles/distiller_c11.dir/src/ai/ai.c.s"
+	/usr/bin/cc $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -S /home/wubu/distiller-c11/src/ai/ai.c -o CMakeFiles/distiller_c11.dir/src/ai/ai.c.s
+
 # Object files for target distiller_c11
 distiller_c11_OBJECTS = \
 "CMakeFiles/distiller_c11.dir/src/dither/dither.c.o" \
@@ -175,7 +231,11 @@ distiller_c11_OBJECTS = \
 "CMakeFiles/distiller_c11.dir/src/compose/compose.c.o" \
 "CMakeFiles/distiller_c11.dir/src/eink/eink.c.o" \
 "CMakeFiles/distiller_c11.dir/src/hw/sam/sam.c.o" \
-"CMakeFiles/distiller_c11.dir/src/hw/einkdrv/einkdrv.c.o"
+"CMakeFiles/distiller_c11.dir/src/hw/einkdrv/einkdrv.c.o" \
+"CMakeFiles/distiller_c11.dir/src/hw/audio/audio.c.o" \
+"CMakeFiles/distiller_c11.dir/src/ui/registry/registry.c.o" \
+"CMakeFiles/distiller_c11.dir/src/ui/gui/gui.c.o" \
+"CMakeFiles/distiller_c11.dir/src/ai/ai.c.o"
 
 # External object files for target distiller_c11
 distiller_c11_EXTERNAL_OBJECTS =
@@ -187,9 +247,13 @@ libdistiller_c11.a: CMakeFiles/distiller_c11.dir/src/compose/compose.c.o
 libdistiller_c11.a: CMakeFiles/distiller_c11.dir/src/eink/eink.c.o
 libdistiller_c11.a: CMakeFiles/distiller_c11.dir/src/hw/sam/sam.c.o
 libdistiller_c11.a: CMakeFiles/distiller_c11.dir/src/hw/einkdrv/einkdrv.c.o
+libdistiller_c11.a: CMakeFiles/distiller_c11.dir/src/hw/audio/audio.c.o
+libdistiller_c11.a: CMakeFiles/distiller_c11.dir/src/ui/registry/registry.c.o
+libdistiller_c11.a: CMakeFiles/distiller_c11.dir/src/ui/gui/gui.c.o
+libdistiller_c11.a: CMakeFiles/distiller_c11.dir/src/ai/ai.c.o
 libdistiller_c11.a: CMakeFiles/distiller_c11.dir/build.make
 libdistiller_c11.a: CMakeFiles/distiller_c11.dir/link.txt
-	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green --bold --progress-dir=/home/wubu/distiller-c11/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_8) "Linking C static library libdistiller_c11.a"
+	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green --bold --progress-dir=/home/wubu/distiller-c11/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_12) "Linking C static library libdistiller_c11.a"
 	$(CMAKE_COMMAND) -P CMakeFiles/distiller_c11.dir/cmake_clean_target.cmake
 	$(CMAKE_COMMAND) -E cmake_link_script CMakeFiles/distiller_c11.dir/link.txt --verbose=$(VERBOSE)
 
