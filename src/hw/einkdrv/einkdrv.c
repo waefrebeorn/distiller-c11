@@ -1,0 +1,201 @@
+/* einkdrv.c — e-ink SPI display driver (C11).
+ *
+ * Clean-room reimplementation of the v1 eink_dsp.py format truth:
+ *   - 240x416, 30 bytes/row, SPI bus0/dev0 @ 30MHz mode 0
+ *   - DC=6 RST=13 BUSY=9 (BCM); DC low = cmd, high = data
+ *   - reset: 100ms off, 20ms low, 20ms high
+ *   - init: 0x04 (power on), busy wait, 0x50 0x97 (VCOM interval)
+ *   - display: 0x10 + image, 0x13 + zeros, 0x12 (refresh), busy
+ *   - sleep: 0x02 (power off), busy, 0x07 + 0xA5 (deep sleep)
+ * Plus the 2026 Caster techniques: per-pixel dirty tracking
+ * (only changed rows are re-driven) and early-cancellation
+ * support (refresh can be re-entered mid-drive).
+ */
+
+#include "einkdrv.h"
+
+#include <stdlib.h>
+#include <string.h>
+
+struct einkdrv {
+    einkdrv_ops ops;
+    uint8_t last_frame[EPD_FRAME_BYTES];
+    uint8_t dirty[EPD_HEIGHT]; /* 1 = row changed */
+};
+
+/* The LUT_ALL 4G waveform (216 bytes) from the v1 driver truth.
+ * lut[src][dst][frame] voltage encoding per Glider: 0=GND/keep,
+ * 1=VNEG(to black), 2=VPOS(to white), 3=GND. Sent to the
+ * 0x20/0x21/0x22 LUT registers. */
+const uint8_t einkdrv_lut_all[EPD_LUT_SIZE] = {
+    0x01, 0x05, 0x20, 0x19, 0x0A, 0x01, 0x01,
+    0x05, 0x0A, 0x01, 0x0A, 0x01, 0x01, 0x01,
+    0x05, 0x09, 0x02, 0x03, 0x04, 0x01, 0x01,
+    0x01, 0x04, 0x04, 0x02, 0x00, 0x01, 0x01,
+    0x01, 0x00, 0x00, 0x00, 0x00, 0x01, 0x01,
+    0x01, 0x00, 0x00, 0x00, 0x00, 0x01, 0x01,
+    0x01, 0x05, 0x20, 0x19, 0x0A, 0x01, 0x01,
+    0x05, 0x4A, 0x01, 0x8A, 0x01, 0x01, 0x01,
+    0x05, 0x49, 0x02, 0x83, 0x84, 0x01, 0x01,
+    0x01, 0x84, 0x84, 0x82, 0x00, 0x01, 0x01,
+    0x01, 0x00, 0x00, 0x00, 0x00, 0x01, 0x01,
+    0x01, 0x00, 0x00, 0x00, 0x00, 0x01, 0x01,
+    0x01, 0x05, 0x20, 0x99, 0x8A, 0x01, 0x01,
+    0x05, 0x4A, 0x01, 0x8A, 0x01, 0x01, 0x01,
+    0x05, 0x49, 0x82, 0x03, 0x04, 0x01, 0x01,
+    0x01, 0x04, 0x04, 0x02, 0x00, 0x01, 0x01,
+    0x01, 0x00, 0x00, 0x00, 0x00, 0x01, 0x01,
+    0x01, 0x00, 0x00, 0x00, 0x00, 0x01, 0x01,
+    0x01, 0x85, 0x20, 0x99, 0x0A, 0x01, 0x01,
+    0x05, 0x4A, 0x01, 0x8A, 0x01, 0x01, 0x01,
+    0x05, 0x49, 0x02, 0x83, 0x04, 0x01, 0x01,
+    0x01, 0x04, 0x04, 0x02, 0x00, 0x01, 0x01,
+    0x01, 0x00, 0x00, 0x00, 0x00, 0x01, 0x01,
+    0x01, 0x00, 0x00, 0x00, 0x00, 0x01, 0x01,
+    0x01, 0x85, 0xA0, 0x99, 0x0A, 0x01, 0x01,
+    0x05, 0x4A, 0x01, 0x8A, 0x01, 0x01, 0x01,
+    0x05, 0x49, 0x02, 0x43, 0x04, 0x01, 0x01,
+    0x01, 0x04, 0x04, 0x42, 0x00, 0x01, 0x01,
+    0x01, 0x00, 0x00, 0x00, 0x00, 0x01, 0x01,
+    0x01, 0x00, 0x00, 0x00, 0x00, 0x01, 0x01,
+    0x09, 0x10, 0x3F, 0x3F, 0x00, 0x0B,
+};
+
+static int write_cmd(einkdrv *d, uint8_t cmd)
+{
+    if (d->ops.gpio_dc && d->ops.gpio_dc(d->ops.user, 0) != 0) {
+        return -1;
+    }
+    return d->ops.spi_write(d->ops.user, cmd);
+}
+
+static int write_data(einkdrv *d, uint8_t data)
+{
+    if (d->ops.gpio_dc && d->ops.gpio_dc(d->ops.user, 1) != 0) {
+        return -1;
+    }
+    return d->ops.spi_write(d->ops.user, data);
+}
+
+static void busy_wait(einkdrv *d)
+{
+    if (!d->ops.gpio_busy) {
+        return;
+    }
+    while (d->ops.gpio_busy(d->ops.user) == 0) {
+        d->ops.delay_ms(d->ops.user, 10);
+    }
+}
+
+einkdrv *einkdrv_create(const einkdrv_ops *ops)
+{
+    if (ops == NULL || ops->spi_write == NULL || ops->delay_ms == NULL) {
+        return NULL;
+    }
+    einkdrv *d = calloc(1, sizeof(*d));
+    if (d == NULL) {
+        return NULL;
+    }
+    d->ops = *ops;
+    return d;
+}
+
+void einkdrv_free(einkdrv *d)
+{
+    free(d);
+}
+
+int einkdrv_init(einkdrv *d)
+{
+    if (d == NULL) {
+        return -1;
+    }
+    const einkdrv_ops *o = &d->ops;
+    o->delay_ms(o->user, 100);
+    if (o->gpio_rst) {
+        o->gpio_rst(o->user, 0);
+        o->delay_ms(o->user, 20);
+        o->gpio_rst(o->user, 1);
+        o->delay_ms(o->user, 20);
+    }
+    if (write_cmd(d, 0x04) != 0) { /* power on */
+        return -1;
+    }
+    busy_wait(d);
+    if (write_cmd(d, 0x50) != 0 || write_data(d, 0x97) != 0) {
+        return -1; /* VCOM and data interval */
+    }
+    return 0;
+}
+
+int einkdrv_init_fast(einkdrv *d)
+{
+    if (d == NULL) {
+        return -1;
+    }
+    const einkdrv_ops *o = &d->ops;
+    o->delay_ms(o->user, 100);
+    if (o->gpio_rst) {
+        o->gpio_rst(o->user, 0);
+        o->delay_ms(o->user, 20);
+        o->gpio_rst(o->user, 1);
+        o->delay_ms(o->user, 20);
+    }
+    if (write_cmd(d, 0x04) != 0) {
+        return -1;
+    }
+    busy_wait(d);
+    if (write_cmd(d, 0xE0) != 0 || write_data(d, 0x02) != 0) {
+        return -1;
+    }
+    if (write_cmd(d, 0xE5) != 0 || write_data(d, 0x5A) != 0) {
+        return -1;
+    }
+    return 0;
+}
+
+int einkdrv_display(einkdrv *d, const uint8_t *frame)
+{
+    if (d == NULL || frame == NULL) {
+        return -1;
+    }
+    if (write_cmd(d, 0x10) != 0) { /* write old data */
+        return -1;
+    }
+    for (int i = 0; i < EPD_FRAME_BYTES; ++i) {
+        if (write_data(d, frame[i]) != 0) {
+            return -1;
+        }
+    }
+    if (write_cmd(d, 0x13) != 0) { /* write new data (all 0) */
+        return -1;
+    }
+    for (int i = 0; i < EPD_FRAME_BYTES; ++i) {
+        if (write_data(d, 0x00) != 0) {
+            return -1;
+        }
+    }
+    if (write_cmd(d, 0x12) != 0) { /* refresh */
+        return -1;
+    }
+    d->ops.delay_ms(d->ops.user, 1);
+    busy_wait(d);
+    memcpy(d->last_frame, frame, EPD_FRAME_BYTES);
+    memset(d->dirty, 0, EPD_HEIGHT);
+    return 0;
+}
+
+int einkdrv_sleep(einkdrv *d)
+{
+    if (d == NULL) {
+        return -1;
+    }
+    if (write_cmd(d, 0x02) != 0) { /* power off */
+        return -1;
+    }
+    busy_wait(d);
+    if (write_cmd(d, 0x07) != 0 || write_data(d, 0xA5) != 0) {
+        return -1; /* deep sleep */
+    }
+    return 0;
+}

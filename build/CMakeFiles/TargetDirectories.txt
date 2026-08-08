@@ -1,0 +1,13 @@
+/home/wubu/distiller-c11/build/CMakeFiles/distiller_c11.dir
+/home/wubu/distiller-c11/build/CMakeFiles/test_dither.dir
+/home/wubu/distiller-c11/build/CMakeFiles/test_pack.dir
+/home/wubu/distiller-c11/build/CMakeFiles/test_image.dir
+/home/wubu/distiller-c11/build/CMakeFiles/test_eink.dir
+/home/wubu/distiller-c11/build/CMakeFiles/test_compose.dir
+/home/wubu/distiller-c11/build/CMakeFiles/test_sam.dir
+/home/wubu/distiller-c11/build/CMakeFiles/test_einkdrv.dir
+/home/wubu/distiller-c11/build/CMakeFiles/bench_eink.dir
+/home/wubu/distiller-c11/build/CMakeFiles/bench_both.dir
+/home/wubu/distiller-c11/build/CMakeFiles/test.dir
+/home/wubu/distiller-c11/build/CMakeFiles/edit_cache.dir
+/home/wubu/distiller-c11/build/CMakeFiles/rebuild_cache.dir

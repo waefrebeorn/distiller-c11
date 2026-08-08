@@ -1,0 +1,1 @@
+/usr/bin/cc -O3 -DNDEBUG CMakeFiles/test_image.dir/tests/test_image.c.o -o test_image  libdistiller_c11.a 

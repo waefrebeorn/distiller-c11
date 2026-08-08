@@ -1,0 +1,1 @@
+/usr/bin/cc -O3 -DNDEBUG CMakeFiles/test_dither.dir/tests/test_dither.c.o -o test_dither  libdistiller_c11.a 

@@ -1,0 +1,1 @@
+/usr/bin/cc -O3 -DNDEBUG CMakeFiles/bench_both.dir/tools/bench_both.c.o -o bench_both  libdistiller_c11.a 

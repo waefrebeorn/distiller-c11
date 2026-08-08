@@ -1,0 +1,1 @@
+/usr/bin/cc -O3 -DNDEBUG CMakeFiles/test_sam.dir/tests/test_sam.c.o -o test_sam  libdistiller_c11.a -lpthread 

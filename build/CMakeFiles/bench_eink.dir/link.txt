@@ -1,0 +1,1 @@
+/usr/bin/cc -O3 -DNDEBUG CMakeFiles/bench_eink.dir/tools/bench_eink.c.o -o bench_eink  libdistiller_c11.a 

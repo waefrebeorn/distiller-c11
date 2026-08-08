@@ -19,6 +19,8 @@ add_library(distiller_c11 STATIC
   src/image/image.c
   src/compose/compose.c
   src/eink/eink.c
+  src/hw/sam/sam.c
+  src/hw/einkdrv/einkdrv.c
 )
 target_include_directories(distiller_c11 PUBLIC src)
 
@@ -44,6 +46,18 @@ add_executable(test_compose tests/test_compose.c)
 target_link_libraries(test_compose distiller_c11)
 add_test(NAME compose COMMAND test_compose)
 
+# --- hw module tests (need pthread for sam) ---
+add_executable(test_sam tests/test_sam.c)
+target_link_libraries(test_sam distiller_c11 pthread)
+add_test(NAME sam COMMAND test_sam)
+
+add_executable(test_einkdrv tests/test_einkdrv.c)
+target_link_libraries(test_einkdrv distiller_c11)
+add_test(NAME einkdrv COMMAND test_einkdrv)
+
 # --- tools ---
 add_executable(bench_eink tools/bench_eink.c)
 target_link_libraries(bench_eink distiller_c11)
+
+add_executable(bench_both tools/bench_both.c)
+target_link_libraries(bench_both distiller_c11)

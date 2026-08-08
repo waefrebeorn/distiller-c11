@@ -1,0 +1,1 @@
+/usr/bin/cc -O3 -DNDEBUG CMakeFiles/test_einkdrv.dir/tests/test_einkdrv.c.o -o test_einkdrv  libdistiller_c11.a 

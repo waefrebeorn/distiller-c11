@@ -1,0 +1,1 @@
+/usr/bin/cc -O3 -DNDEBUG CMakeFiles/test_compose.dir/tests/test_compose.c.o -o test_compose  libdistiller_c11.a 
