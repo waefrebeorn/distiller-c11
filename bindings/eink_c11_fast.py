@@ -91,12 +91,21 @@ class _C11Session:
 
     def display_gray(self, gray8):
         """gray8: 240x416 uint8, top row first (already flipped to match GUI).
-        Returns None on success; raises on failure."""
+        Returns None on success; raises on failure.
+
+        Matches the SDK exactly: update_screen_1bit runs epd_init_part()
+        (reset + partial-waveform reconfig: 0x04, 0xE0 0x02, 0xE5 0x6E,
+        0x50 0xD7) BEFORE every pic_display. Without this per-frame partial
+        init the panel refreshes in the wrong waveform state -> faint /
+        wrong-refresh (invisible edges, only-top visible). So re-run the
+        partial init before every display."""
         import numpy as np
         gray8 = np.ascontiguousarray(gray8, dtype=np.uint8)
         gptr = gray8.ctypes.data_as(ctypes.POINTER(ctypes.c_uint8))
         if self._lib.eink_pi_render_gray(self._frame, gptr, self._packed) < 0:
             raise RuntimeError("eink_pi_render_gray failed")
+        if self._lib.einkdrv_pi_init_fast() != 0:
+            raise RuntimeError("einkdrv_pi_init_fast (per-frame partial) failed")
         if self._lib.einkdrv_pi_display_partial(self._packed) != 0:
             raise RuntimeError("einkdrv_pi_display_partial failed")
 
