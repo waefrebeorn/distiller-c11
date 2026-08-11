@@ -176,6 +176,16 @@ int einkdrv_pi_open(void) {
 int einkdrv_pi_init(void) { return g_drv ? einkdrv_init(g_drv) : -1; }
 int einkdrv_pi_init_fast(void) { return g_drv ? einkdrv_init_fast(g_drv) : -1; }
 
+/* einkdrv_pi_set_pll(): override the PLL frame-rate register (0x30).
+ * Default from the v1 LUT is 0x09 (~44Hz). The UC8253 family supports
+ * up to 200Hz (e.g. 0x0A=50, 0x0C=67, 0x0E=100, 0x10=200). A higher
+ * frame rate runs the same waveform LUT in fewer ms — but the
+ * electrophoretic particles get less drive time per phase, so contrast
+ * and ghosting must be checked visually. Returns 0 on success. */
+int einkdrv_pi_set_pll(uint8_t pll) {
+    return g_drv ? einkdrv_set_pll(g_drv, pll) : -1;
+}
+
 /* Display one packed frame. Persistent-session variant: assumes the
  * panel is already powered (init called once); skips the per-frame
  * reset+power-on (181ms) and goes straight to data+refresh. */
@@ -186,6 +196,10 @@ int einkdrv_pi_display(const uint8_t *frame) {
 /* Dirty-row partial display (no-op on identical frames). */
 int einkdrv_pi_display_partial(const uint8_t *frame) {
     return g_drv ? einkdrv_display_partial(g_drv, frame) : -1;
+}
+
+int einkdrv_pi_set_full_interval(int interval) {
+    return g_drv ? einkdrv_set_full_interval(g_drv, interval) : -1;
 }
 
 /* C11 render pipeline exports (eink.c): gray HxW uint8 -> packed 1-bit.

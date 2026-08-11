@@ -22,6 +22,8 @@ struct einkdrv {
     uint8_t last_frame[EPD_FRAME_BYTES];
     uint8_t dirty[EPD_HEIGHT]; /* 1 = row changed */
     int has_frame;             /* last_frame holds a valid baseline */
+    int partial_count;         /* partial refreshes since last full */
+    int full_interval;         /* force full refresh every N partials */
 };
 
 /* The LUT_ALL 4G waveform (216 bytes) from the v1 driver truth.
@@ -98,6 +100,7 @@ einkdrv *einkdrv_create(const einkdrv_ops *ops)
         return NULL;
     }
     d->ops = *ops;
+    d->full_interval = 5; /* full refresh every 5 partials (ghosting hygiene) */
     return d;
 }
 
@@ -155,6 +158,31 @@ int einkdrv_init_fast(einkdrv *d)
     if (write_cmd(d, 0x50) != 0 || write_data(d, 0xD7) != 0) {
         return -1;
     }
+    return 0;
+}
+
+/* Set the PLL frame-rate register (0x30). Default is 0x09 (~44Hz);
+ * the UC8253 family supports up to 200Hz (0x0A=50, 0x0C=67, 0x0E=100,
+ * 0x10=200). Higher = same waveform LUT in fewer ms, but less drive
+ * time per phase (check contrast/ghosting visually). Panel must be
+ * powered (init/init_fast first). Returns 0 on success. */
+int einkdrv_set_pll(einkdrv *d, uint8_t pll)
+{
+    if (d == NULL) {
+        return -1;
+    }
+    if (write_cmd(d, 0x30) != 0 || write_data(d, pll) != 0) {
+        return -1;
+    }
+    return 0;
+}
+
+int einkdrv_set_full_interval(einkdrv *d, int interval)
+{
+    if (d == NULL) {
+        return -1;
+    }
+    d->full_interval = interval;
     return 0;
 }
 
@@ -223,6 +251,17 @@ int einkdrv_display_partial(einkdrv *d, const uint8_t *frame)
      * that supports 0x90/0x91 window regs — noted for the fast-refresh
      * port). The win here is the zero-work no-change path and the
      * persistent session (no reset). */
+    d->partial_count++;
+    /* Ghosting hygiene (Good Display FAQ + Japanese posts): a partial
+     * refresh leaves residual image on the UC8253; run a real full
+     * refresh every full_interval partials to clear it. Cheap and
+     * extends panel life. */
+    if (d->full_interval > 0 && d->partial_count >= d->full_interval) {
+        d->partial_count = 0;
+        int rc = einkdrv_display(d, frame);
+        if (rc == 0) d->has_frame = 1;
+        return rc;
+    }
     int rc = einkdrv_display(d, frame);
     if (rc == 0) d->has_frame = 1;
     return rc;

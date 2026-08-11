@@ -57,6 +57,16 @@ int einkdrv_init(einkdrv *d);
 /* Fast init (0xE0/0xE5 for partial refresh). */
 int einkdrv_init_fast(einkdrv *d);
 
+/* Set the PLL frame-rate register (0x30). Default 0x09 (~44Hz); up to
+ * 200Hz supported (0x0A=50, 0x0C=67, 0x0E=100, 0x10=200). Faster frame
+ * rate = same waveform in fewer ms, at the cost of per-phase drive
+ * time (verify contrast/ghosting). Panel must be powered first. */
+int einkdrv_set_pll(einkdrv *d, uint8_t pll);
+
+/* Set the full-refresh interval for the ghosting-hygiene path: force a
+ * full refresh every N partial refreshes (default 5). 0 disables. */
+int einkdrv_set_full_interval(einkdrv *d, int interval);
+
 /* Display one packed frame (EPD_FRAME_BYTES, MSB-first). Assumes the
  * panel is already powered (init or init_fast called at least once) —
  * no per-frame reset. This is the persistent-session hot path. */
