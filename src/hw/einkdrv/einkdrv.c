@@ -5,17 +5,21 @@
  *   - DC=6 RST=13 BUSY=9 (BCM); DC low = cmd, high = data
  *   - reset: 100ms off, 20ms low, 20ms high
  *   - init: 0x04 (power on), busy wait, 0x50 0x97 (VCOM interval)
- *   - display: 0x10 + image, 0x13 + zeros, 0x12 (refresh), busy
+ *   - display: 0x10 + OLD baseline, 0x13 + NEW frame, 0x12 (refresh), busy
  *   - sleep: 0x02 (power off), busy, 0x07 + 0xA5 (deep sleep)
  * Plus the 2026 Caster techniques: per-pixel dirty tracking
  * (only changed rows are re-driven) and early-cancellation
  * support (refresh can be re-entered mid-drive).
  */
 
+#define _POSIX_C_SOURCE 200809L
 #include "einkdrv.h"
 
 #include <stdlib.h>
 #include <string.h>
+#include <time.h>
+
+static long now_ms(void);  /* fwd decl (used by einkdrv_create before def) */
 
 struct einkdrv {
     einkdrv_ops ops;
@@ -24,6 +28,8 @@ struct einkdrv {
     int has_frame;             /* last_frame holds a valid baseline */
     int partial_count;         /* partial refreshes since last full */
     int full_interval;         /* force full refresh every N partials */
+    long last_full_ms;         /* monotonic ms of the last full refresh */
+    long full_interval_min_ms; /* min ms between forced full refreshes */
 };
 
 /* The LUT_ALL 4G waveform (216 bytes) from the v1 driver truth.
@@ -101,6 +107,11 @@ einkdrv *einkdrv_create(const einkdrv_ops *ops)
     }
     d->ops = *ops;
     d->full_interval = 5; /* full refresh every 5 partials (ghosting hygiene) */
+    /* but only if >= this much time elapsed since the last full refresh, so
+     * rapid interactive navigation (many partials/sec) never flashes the
+     * panel mid-scroll. */
+    d->full_interval_min_ms = 2000;
+    d->last_full_ms = now_ms();  /* treat create as a recent full refresh */
     return d;
 }
 
@@ -191,19 +202,27 @@ int einkdrv_display(einkdrv *d, const uint8_t *frame)
     if (d == NULL || frame == NULL) {
         return -1;
     }
-    if (write_cmd(d, 0x10) != 0) { /* write old data */
+    /* Write OLD data (baseline) to 0x10, NEW data (the frame to show) to
+     * 0x13 — matching the verified SDK pic_display. The UC8253 partial
+     * refresh drives each pixel from the old (0x10) state toward the new
+     * (0x13) state, so 0x10 MUST be the previous baseline and 0x13 the
+     * target frame. The old code had these SWAPPED (frame->0x10, zeros->
+     * 0x13), which drove the whole panel toward BLACK on every refresh —
+     * the alternating black/white flash during menu navigation. */
+    if (write_cmd(d, 0x10) != 0) { /* write old data (baseline) */
+        return -1;
+    }
+    const uint8_t *old = d->has_frame ? d->last_frame : frame;
+    for (int i = 0; i < EPD_FRAME_BYTES; ++i) {
+        if (write_data(d, old[i]) != 0) {
+            return -1;
+        }
+    }
+    if (write_cmd(d, 0x13) != 0) { /* write new data (target frame) */
         return -1;
     }
     for (int i = 0; i < EPD_FRAME_BYTES; ++i) {
         if (write_data(d, frame[i]) != 0) {
-            return -1;
-        }
-    }
-    if (write_cmd(d, 0x13) != 0) { /* write new data (all 0) */
-        return -1;
-    }
-    for (int i = 0; i < EPD_FRAME_BYTES; ++i) {
-        if (write_data(d, 0x00) != 0) {
             return -1;
         }
     }
@@ -216,6 +235,14 @@ int einkdrv_display(einkdrv *d, const uint8_t *frame)
     memset(d->dirty, 0, EPD_HEIGHT);
     d->has_frame = 1;
     return 0;
+}
+
+/* Monotonic milliseconds for the ghosting-hygiene time gate. */
+static long now_ms(void)
+{
+    struct timespec ts;
+    clock_gettime(CLOCK_MONOTONIC, &ts);
+    return ts.tv_sec * 1000L + ts.tv_nsec / 1000000L;
 }
 
 int einkdrv_display_partial(einkdrv *d, const uint8_t *frame)
@@ -254,13 +281,22 @@ int einkdrv_display_partial(einkdrv *d, const uint8_t *frame)
     d->partial_count++;
     /* Ghosting hygiene (Good Display FAQ + Japanese posts): a partial
      * refresh leaves residual image on the UC8253; run a real full
-     * refresh every full_interval partials to clear it. Cheap and
-     * extends panel life. */
+     * refresh every full_interval partials to clear it. Gated by a
+     * min-elapsed-time so RAPID interactive navigation (many partials
+     * per second, e.g. scrolling the menu) never flashes the panel
+     * mid-scroll — the full refresh only fires when both the partial
+     * count is reached AND enough wall-time has passed since the last
+     * full refresh (the menu settles ~0.46s/frame, so a 2s gate means
+     * it won't trip during a fast scroll). */
     if (d->full_interval > 0 && d->partial_count >= d->full_interval) {
-        d->partial_count = 0;
-        int rc = einkdrv_display(d, frame);
-        if (rc == 0) d->has_frame = 1;
-        return rc;
+        long now = now_ms();
+        if (now - d->last_full_ms >= d->full_interval_min_ms) {
+            d->partial_count = 0;
+            d->last_full_ms = now;
+            int rc = einkdrv_display(d, frame);
+            if (rc == 0) d->has_frame = 1;
+            return rc;
+        }
     }
     int rc = einkdrv_display(d, frame);
     if (rc == 0) d->has_frame = 1;
@@ -284,6 +320,7 @@ int einkdrv_white_refresh(einkdrv *d)
     if (rc == 0) {
         d->partial_count = 0;
         d->has_frame = 1;
+        d->last_full_ms = now_ms();
     }
     return rc;
 }
