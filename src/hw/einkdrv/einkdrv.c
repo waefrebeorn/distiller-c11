@@ -106,6 +106,13 @@ einkdrv *einkdrv_create(const einkdrv_ops *ops)
         return NULL;
     }
     d->ops = *ops;
+    /* Match the SDK exactly: oldData starts ALL-BLACK with a valid baseline
+     * (pic_display writes 0x10=oldData, 0x13=new_data). So the very first
+     * display drives from black -> content, which is how the panel actually
+     * boots (it never white-refreshes on its own). */
+    memset(d->last_frame, 0x00, EPD_FRAME_BYTES);
+    d->has_frame = 1;
+    d->partial_count = 0;
     d->full_interval = 5; /* full refresh every 5 partials (ghosting hygiene) */
     /* but only if >= this much time elapsed since the last full refresh, so
      * rapid interactive navigation (many partials/sec) never flashes the

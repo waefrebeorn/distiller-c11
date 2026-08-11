@@ -76,15 +76,11 @@ class _C11Session:
         self._frame = self._lib.eink_pi_create(_WIDTH, _HEIGHT)
         if not self._frame:
             raise RuntimeError("eink_pi_create failed")
-        # Full white clear on FIRST open: e-ink keeps its last state and
-        # partial display only drives changed rows, so a fresh process
-        # drawing over a stuck-black panel would leave black rows black.
-        # Clear to white once so the baseline is known, then partial works.
-        try:
-            self._lib.einkdrv_pi_white_refresh()
-            log.info("C11 panel white-cleared on open")
-        except Exception as _e:
-            log.warning("C11 white clear failed: %s", _e)
+        # NO white-refresh here. The SDK's driver initializes oldData as
+        # ALL-BLACK and pic_display drives 0x10=oldData -> 0x13=new_data,
+        # so the first real render naturally goes black->content. Forcing a
+        # white-refresh on open broke the baseline chain (screen went all
+        # white). Leave the panel alone; just init it.
 
     def display_gray(self, gray8):
         """gray8: 240x416 uint8, top row first (already flipped to match GUI).
