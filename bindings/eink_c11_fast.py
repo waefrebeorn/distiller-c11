@@ -71,8 +71,15 @@ class _C11Session:
     def open(self):
         if self._lib.einkdrv_pi_open() != 0:
             raise RuntimeError("einkdrv_pi_open failed")
+        # Match the SDK EXACTLY: EinkDSP() runs the FULL 4G init (resolution
+        # 0x61 + full waveform LUT) at construction, then epd_init_part (the
+        # partial LUT) before each display. Running only the partial init
+        # left the panel under-driven -> faint ghost. So do BOTH: full init
+        # once here (sets resolution + LUT), then the partial init too.
+        if self._lib.einkdrv_pi_init() != 0:
+            raise RuntimeError("einkdrv_pi_init (full) failed")
         if self._lib.einkdrv_pi_init_fast() != 0:
-            raise RuntimeError("einkdrv_pi_init_fast failed")
+            raise RuntimeError("einkdrv_pi_init_fast (partial) failed")
         self._frame = self._lib.eink_pi_create(_WIDTH, _HEIGHT)
         if not self._frame:
             raise RuntimeError("eink_pi_create failed")

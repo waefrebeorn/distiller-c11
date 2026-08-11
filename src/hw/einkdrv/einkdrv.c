@@ -140,13 +140,73 @@ int einkdrv_init(einkdrv *d)
         o->gpio_rst(o->user, 1);
         o->delay_ms(o->user, 20);
     }
-    if (write_cmd(d, 0x04) != 0) { /* power on */
+    /* ---- FULL init, matching the SDK epd_w21_init_4g EXACTLY (traced
+     * byte-for-byte on the device). This is what actually configures the
+     * panel: resolution (0x61) + the full 4G waveform LUT (0x20-0x24).
+     * Running only the partial init (as we did) leaves the panel
+     * under-driven -> faint ghost. ---- */
+    /* Panel Setting: LUT from MCU */
+    if (write_cmd(d, 0x00) != 0 || write_data(d, 0xFF) != 0 || write_data(d, 0x0D) != 0) {
+        return -1;
+    }
+    /* Power Setting: VGH/VSH/VSL from the LUT tail */
+    if (write_cmd(d, 0x01) != 0 || write_data(d, 0x03) != 0 ||
+        write_data(d, einkdrv_lut_all[211]) != 0 ||  /* VGH=0x10 */
+        write_data(d, einkdrv_lut_all[212]) != 0 ||  /* VSH=0x3F */
+        write_data(d, einkdrv_lut_all[213]) != 0 ||  /* VSL=0x3F */
+        write_data(d, einkdrv_lut_all[214]) != 0) {  /* VSHR=0x00 */
+        return -1;
+    }
+    /* Booster Soft Start */
+    if (write_cmd(d, 0x06) != 0 || write_data(d, 0xD7) != 0 ||
+        write_data(d, 0xD7) != 0 || write_data(d, 0x27) != 0) {
+        return -1;
+    }
+    /* PLL Control (frame rate) */
+    if (write_cmd(d, 0x30) != 0 || write_data(d, einkdrv_lut_all[210]) != 0) { /* PLL=0x09 */
+        return -1;
+    }
+    /* CDI (VCOM and data interval) */
+    if (write_cmd(d, 0x50) != 0 || write_data(d, 0x57) != 0) {
+        return -1;
+    }
+    /* TCON */
+    if (write_cmd(d, 0x60) != 0 || write_data(d, 0x22) != 0) {
+        return -1;
+    }
+    /* Resolution: 240x416 (HRES[7:3]=0xF0, VRES[15:8]=0x01, VRES[7:0]=0xA0) */
+    if (write_cmd(d, 0x61) != 0 || write_data(d, 0xF0) != 0 ||
+        write_data(d, 0x01) != 0 || write_data(d, 0xA0) != 0) {
+        return -1;
+    }
+    if (write_cmd(d, 0x65) != 0 || write_data(d, 0x00) != 0) {
+        return -1;
+    }
+    /* VCOM_DC (from LUT tail = 0x0B) */
+    if (write_cmd(d, 0x82) != 0 || write_data(d, einkdrv_lut_all[215]) != 0) {
+        return -1;
+    }
+    /* Power Saving Register */
+    if (write_cmd(d, 0xE3) != 0 || write_data(d, 0x88) != 0) {
+        return -1;
+    }
+    /* Full 4G waveform LUT: 0x20..0x24, 42 bytes each */
+    static const uint8_t lut_cmds[5] = {0x20, 0x21, 0x22, 0x23, 0x24};
+    for (int c = 0; c < 5; ++c) {
+        if (write_cmd(d, lut_cmds[c]) != 0) {
+            return -1;
+        }
+        for (int i = 0; i < 42; ++i) {
+            if (write_data(d, einkdrv_lut_all[c * 42 + i]) != 0) {
+                return -1;
+            }
+        }
+    }
+    /* Power ON */
+    if (write_cmd(d, 0x04) != 0) {
         return -1;
     }
     busy_wait(d);
-    if (write_cmd(d, 0x50) != 0 || write_data(d, 0x97) != 0) {
-        return -1; /* VCOM and data interval */
-    }
     return 0;
 }
 
