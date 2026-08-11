@@ -55,7 +55,7 @@ long pack_bits(pack_ctx *ctx, const uint8_t *frame, uint8_t *out)
         memset(drow, 0, rb);
         for (size_t x = 0; x < w; ++x) {
             if (srow[x] != 0) {
-                drow[x / 8] |= (uint8_t)(1u << (x % 8)); /* LSB = left */
+                drow[x / 8] |= (uint8_t)(1u << (7 - (x % 8))); /* MSB = left */
             }
         }
     }
