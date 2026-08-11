@@ -81,6 +81,16 @@ int einkdrv_display(einkdrv *d, const uint8_t *frame);
  * on success. Falls back to full display if no previous frame. */
 int einkdrv_display_partial(einkdrv *d, const uint8_t *frame);
 
+/* White refresh: drive the whole panel to white and reset the partial
+ * baseline (erases ghosting, un-sticks a black panel). Call on boot/app-open
+ * and after navigation transitions. Returns 0 on success. */
+int einkdrv_white_refresh(einkdrv *d);
+
+/* Clear a region (rectangle) to white without touching the rest of the
+ * frame (the "white frame as regions" technique). x0,y0 top-left, w,h size.
+ * Returns 0 on success. */
+int einkdrv_clear_region(einkdrv *d, int x0, int y0, int w, int h);
+
 /* Power off + deep sleep. */
 int einkdrv_sleep(einkdrv *d);
 

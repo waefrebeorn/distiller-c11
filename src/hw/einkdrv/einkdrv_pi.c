@@ -216,6 +216,14 @@ int einkdrv_pi_set_full_interval(int interval) {
     return g_drv ? einkdrv_set_full_interval(g_drv, interval) : -1;
 }
 
+/* White refresh + region-clear C ABI (ctypes). */
+int einkdrv_pi_white_refresh(void) {
+    return g_drv ? einkdrv_white_refresh(g_drv) : -1;
+}
+int einkdrv_pi_clear_region(int x0, int y0, int w, int h) {
+    return g_drv ? einkdrv_clear_region(g_drv, x0, y0, w, h) : -1;
+}
+
 /* C11 render pipeline exports (eink.c): gray HxW uint8 -> packed 1-bit.
  * Mode: 0=bayer8 1=floyd-steinberg 2=threshold. Returns bytes or -1. */
 eink_frame *eink_pi_create(size_t w, size_t h) { return eink_create(w, h); }

@@ -267,6 +267,53 @@ int einkdrv_display_partial(einkdrv *d, const uint8_t *frame)
     return rc;
 }
 
+/* White refresh: drive the whole panel to white (0xFF every byte) and reset
+ * the partial baseline. This is the definitive e-ink "clear" that removes
+ * residual/ghosting image and un-sticks a stuck-black panel. Research +
+ * GxEPD/peterhinch practice: a full white refresh is what actually erases
+ * accumulated partial-update ghosting (a partial can't, it only moves the
+ * pixels that changed). Call it: (1) on every boot/app-open before the first
+ * render, (2) after a navigation transition, (3) on the adaptive cadence.
+ * Returns 0 on success. */
+int einkdrv_white_refresh(einkdrv *d)
+{
+    if (d == NULL) return -1;
+    static uint8_t white[EPD_FRAME_BYTES];
+    memset(white, 0xFF, EPD_FRAME_BYTES);
+    int rc = einkdrv_display(d, white);  /* full display, updates last_frame */
+    if (rc == 0) {
+        d->partial_count = 0;
+        d->has_frame = 1;
+    }
+    return rc;
+}
+
+/* Clear a region (rectangle, 1-bit MSB pack, y=0 top) to white WITHOUT
+ * touching the rest of the frame. Blends white into the current baseline for
+ * just that box, then partial-displays — so only the region's rows that
+ * changed actually drive. This is the "white frame as regions" technique:
+ * clear only the dirty box instead of flashing the whole panel.
+ * x0,y0 top-left, w,h size (clamped to panel). Returns 0 on success. */
+int einkdrv_clear_region(einkdrv *d, int x0, int y0, int w, int h)
+{
+    if (d == NULL) return -1;
+    if (!d->has_frame) {
+        /* no baseline yet: white-refresh the whole panel first */
+        return einkdrv_white_refresh(d);
+    }
+    /* copy baseline into a working frame, white out the box */
+    uint8_t frame[EPD_FRAME_BYTES];
+    memcpy(frame, d->last_frame, EPD_FRAME_BYTES);
+    for (int y = y0; y < y0 + h && y < EPD_HEIGHT; ++y) {
+        if (y < 0) continue;
+        for (int x = x0; x < x0 + w && x < EPD_WIDTH; ++x) {
+            if (x < 0) continue;
+            frame[y * EPD_ROW_BYTES + (x >> 3)] |= (uint8_t)(1u << (7 - (x & 7)));
+        }
+    }
+    return einkdrv_display_partial(d, frame);
+}
+
 int einkdrv_sleep(einkdrv *d)
 {
     if (d == NULL) {

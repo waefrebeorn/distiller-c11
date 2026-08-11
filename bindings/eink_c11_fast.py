@@ -37,6 +37,9 @@ def _load() -> ctypes.CDLL:
     _LIB.einkdrv_pi_init_fast.restype = ctypes.c_int
     _LIB.einkdrv_pi_display_partial.argtypes = [ctypes.POINTER(ctypes.c_uint8)]
     _LIB.einkdrv_pi_display_partial.restype = ctypes.c_int
+    _LIB.einkdrv_pi_white_refresh.restype = ctypes.c_int
+    _LIB.einkdrv_pi_clear_region.argtypes = [ctypes.c_int, ctypes.c_int, ctypes.c_int, ctypes.c_int]
+    _LIB.einkdrv_pi_clear_region.restype = ctypes.c_int
     _LIB.einkdrv_pi_sleep.restype = ctypes.c_int
     # render
     _LIB.eink_pi_create.restype = ctypes.c_void_p
@@ -73,6 +76,15 @@ class _C11Session:
         self._frame = self._lib.eink_pi_create(_WIDTH, _HEIGHT)
         if not self._frame:
             raise RuntimeError("eink_pi_create failed")
+        # Full white clear on FIRST open: e-ink keeps its last state and
+        # partial display only drives changed rows, so a fresh process
+        # drawing over a stuck-black panel would leave black rows black.
+        # Clear to white once so the baseline is known, then partial works.
+        try:
+            self._lib.einkdrv_pi_white_refresh()
+            log.info("C11 panel white-cleared on open")
+        except Exception as _e:
+            log.warning("C11 white clear failed: %s", _e)
 
     def display_gray(self, gray8):
         """gray8: 240x416 uint8, top row first (already flipped to match GUI).
