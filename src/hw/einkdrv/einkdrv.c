@@ -21,6 +21,7 @@ struct einkdrv {
     einkdrv_ops ops;
     uint8_t last_frame[EPD_FRAME_BYTES];
     uint8_t dirty[EPD_HEIGHT]; /* 1 = row changed */
+    int has_frame;             /* last_frame holds a valid baseline */
 };
 
 /* The LUT_ALL 4G waveform (216 bytes) from the v1 driver truth.
@@ -148,7 +149,10 @@ int einkdrv_init_fast(einkdrv *d)
     if (write_cmd(d, 0xE0) != 0 || write_data(d, 0x02) != 0) {
         return -1;
     }
-    if (write_cmd(d, 0xE5) != 0 || write_data(d, 0x5A) != 0) {
+    if (write_cmd(d, 0xE5) != 0 || write_data(d, 0x6E) != 0) {
+        return -1;
+    }
+    if (write_cmd(d, 0x50) != 0 || write_data(d, 0xD7) != 0) {
         return -1;
     }
     return 0;
@@ -182,7 +186,46 @@ int einkdrv_display(einkdrv *d, const uint8_t *frame)
     busy_wait(d);
     memcpy(d->last_frame, frame, EPD_FRAME_BYTES);
     memset(d->dirty, 0, EPD_HEIGHT);
+    d->has_frame = 1;
     return 0;
+}
+
+int einkdrv_display_partial(einkdrv *d, const uint8_t *frame)
+{
+    if (d == NULL || frame == NULL) {
+        return -1;
+    }
+    /* First frame: no baseline, full display. */
+    if (d->has_frame == 0) {
+        int rc = einkdrv_display(d, frame);
+        d->has_frame = (rc == 0);
+        return rc;
+    }
+    /* Compute dirty rows: any of the 30 packed bytes of a row changed. */
+    int dirty_count = 0;
+    for (int r = 0; r < EPD_HEIGHT; ++r) {
+        const uint8_t *a = frame + (size_t)r * EPD_ROW_BYTES;
+        const uint8_t *b = d->last_frame + (size_t)r * EPD_ROW_BYTES;
+        int changed = 0;
+        for (int c = 0; c < EPD_ROW_BYTES; ++c) {
+            if (a[c] != b[c]) { changed = 1; break; }
+        }
+        d->dirty[r] = changed ? 1 : 0;
+        if (changed) dirty_count++;
+    }
+    /* Nothing changed: no SPI, no refresh. */
+    if (dirty_count == 0) {
+        return 0;
+    }
+    /* Small window optimization: if the change is confined to a few
+     * contiguous rows, still send the full frame (this panel's protocol
+     * is full-frame 0x10/0x13; windowed drive would need a controller
+     * that supports 0x90/0x91 window regs — noted for the fast-refresh
+     * port). The win here is the zero-work no-change path and the
+     * persistent session (no reset). */
+    int rc = einkdrv_display(d, frame);
+    if (rc == 0) d->has_frame = 1;
+    return rc;
 }
 
 int einkdrv_sleep(einkdrv *d)

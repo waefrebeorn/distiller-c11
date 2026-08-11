@@ -140,6 +140,19 @@ distiller_c11/fast:
 .PHONY : distiller_c11/fast
 
 #=============================================================================
+# Target rules for targets named eink_c11
+
+# Build rule for target.
+eink_c11: cmake_check_build_system
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/Makefile2 eink_c11
+.PHONY : eink_c11
+
+# fast build rule for target.
+eink_c11/fast:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/eink_c11.dir/build.make CMakeFiles/eink_c11.dir/build
+.PHONY : eink_c11/fast
+
+#=============================================================================
 # Target rules for targets named test_dither
 
 # Build rule for target.
@@ -362,6 +375,7 @@ src/dither/dither.o: src/dither/dither.c.o
 # target to build an object file
 src/dither/dither.c.o:
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/distiller_c11.dir/build.make CMakeFiles/distiller_c11.dir/src/dither/dither.c.o
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/eink_c11.dir/build.make CMakeFiles/eink_c11.dir/src/dither/dither.c.o
 .PHONY : src/dither/dither.c.o
 
 src/dither/dither.i: src/dither/dither.c.i
@@ -370,6 +384,7 @@ src/dither/dither.i: src/dither/dither.c.i
 # target to preprocess a source file
 src/dither/dither.c.i:
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/distiller_c11.dir/build.make CMakeFiles/distiller_c11.dir/src/dither/dither.c.i
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/eink_c11.dir/build.make CMakeFiles/eink_c11.dir/src/dither/dither.c.i
 .PHONY : src/dither/dither.c.i
 
 src/dither/dither.s: src/dither/dither.c.s
@@ -378,6 +393,7 @@ src/dither/dither.s: src/dither/dither.c.s
 # target to generate assembly for a file
 src/dither/dither.c.s:
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/distiller_c11.dir/build.make CMakeFiles/distiller_c11.dir/src/dither/dither.c.s
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/eink_c11.dir/build.make CMakeFiles/eink_c11.dir/src/dither/dither.c.s
 .PHONY : src/dither/dither.c.s
 
 src/eink/eink.o: src/eink/eink.c.o
@@ -386,6 +402,7 @@ src/eink/eink.o: src/eink/eink.c.o
 # target to build an object file
 src/eink/eink.c.o:
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/distiller_c11.dir/build.make CMakeFiles/distiller_c11.dir/src/eink/eink.c.o
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/eink_c11.dir/build.make CMakeFiles/eink_c11.dir/src/eink/eink.c.o
 .PHONY : src/eink/eink.c.o
 
 src/eink/eink.i: src/eink/eink.c.i
@@ -394,6 +411,7 @@ src/eink/eink.i: src/eink/eink.c.i
 # target to preprocess a source file
 src/eink/eink.c.i:
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/distiller_c11.dir/build.make CMakeFiles/distiller_c11.dir/src/eink/eink.c.i
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/eink_c11.dir/build.make CMakeFiles/eink_c11.dir/src/eink/eink.c.i
 .PHONY : src/eink/eink.c.i
 
 src/eink/eink.s: src/eink/eink.c.s
@@ -402,6 +420,7 @@ src/eink/eink.s: src/eink/eink.c.s
 # target to generate assembly for a file
 src/eink/eink.c.s:
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/distiller_c11.dir/build.make CMakeFiles/distiller_c11.dir/src/eink/eink.c.s
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/eink_c11.dir/build.make CMakeFiles/eink_c11.dir/src/eink/eink.c.s
 .PHONY : src/eink/eink.c.s
 
 src/hw/audio/audio.o: src/hw/audio/audio.c.o
@@ -452,6 +471,33 @@ src/hw/einkdrv/einkdrv.c.s:
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/distiller_c11.dir/build.make CMakeFiles/distiller_c11.dir/src/hw/einkdrv/einkdrv.c.s
 .PHONY : src/hw/einkdrv/einkdrv.c.s
 
+src/hw/einkdrv/einkdrv_pi.o: src/hw/einkdrv/einkdrv_pi.c.o
+.PHONY : src/hw/einkdrv/einkdrv_pi.o
+
+# target to build an object file
+src/hw/einkdrv/einkdrv_pi.c.o:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/distiller_c11.dir/build.make CMakeFiles/distiller_c11.dir/src/hw/einkdrv/einkdrv_pi.c.o
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/eink_c11.dir/build.make CMakeFiles/eink_c11.dir/src/hw/einkdrv/einkdrv_pi.c.o
+.PHONY : src/hw/einkdrv/einkdrv_pi.c.o
+
+src/hw/einkdrv/einkdrv_pi.i: src/hw/einkdrv/einkdrv_pi.c.i
+.PHONY : src/hw/einkdrv/einkdrv_pi.i
+
+# target to preprocess a source file
+src/hw/einkdrv/einkdrv_pi.c.i:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/distiller_c11.dir/build.make CMakeFiles/distiller_c11.dir/src/hw/einkdrv/einkdrv_pi.c.i
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/eink_c11.dir/build.make CMakeFiles/eink_c11.dir/src/hw/einkdrv/einkdrv_pi.c.i
+.PHONY : src/hw/einkdrv/einkdrv_pi.c.i
+
+src/hw/einkdrv/einkdrv_pi.s: src/hw/einkdrv/einkdrv_pi.c.s
+.PHONY : src/hw/einkdrv/einkdrv_pi.s
+
+# target to generate assembly for a file
+src/hw/einkdrv/einkdrv_pi.c.s:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/distiller_c11.dir/build.make CMakeFiles/distiller_c11.dir/src/hw/einkdrv/einkdrv_pi.c.s
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/eink_c11.dir/build.make CMakeFiles/eink_c11.dir/src/hw/einkdrv/einkdrv_pi.c.s
+.PHONY : src/hw/einkdrv/einkdrv_pi.c.s
+
 src/hw/sam/sam.o: src/hw/sam/sam.c.o
 .PHONY : src/hw/sam/sam.o
 
@@ -482,6 +528,7 @@ src/image/image.o: src/image/image.c.o
 # target to build an object file
 src/image/image.c.o:
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/distiller_c11.dir/build.make CMakeFiles/distiller_c11.dir/src/image/image.c.o
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/eink_c11.dir/build.make CMakeFiles/eink_c11.dir/src/image/image.c.o
 .PHONY : src/image/image.c.o
 
 src/image/image.i: src/image/image.c.i
@@ -490,6 +537,7 @@ src/image/image.i: src/image/image.c.i
 # target to preprocess a source file
 src/image/image.c.i:
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/distiller_c11.dir/build.make CMakeFiles/distiller_c11.dir/src/image/image.c.i
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/eink_c11.dir/build.make CMakeFiles/eink_c11.dir/src/image/image.c.i
 .PHONY : src/image/image.c.i
 
 src/image/image.s: src/image/image.c.s
@@ -498,6 +546,7 @@ src/image/image.s: src/image/image.c.s
 # target to generate assembly for a file
 src/image/image.c.s:
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/distiller_c11.dir/build.make CMakeFiles/distiller_c11.dir/src/image/image.c.s
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/eink_c11.dir/build.make CMakeFiles/eink_c11.dir/src/image/image.c.s
 .PHONY : src/image/image.c.s
 
 src/pack/pack.o: src/pack/pack.c.o
@@ -506,6 +555,7 @@ src/pack/pack.o: src/pack/pack.c.o
 # target to build an object file
 src/pack/pack.c.o:
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/distiller_c11.dir/build.make CMakeFiles/distiller_c11.dir/src/pack/pack.c.o
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/eink_c11.dir/build.make CMakeFiles/eink_c11.dir/src/pack/pack.c.o
 .PHONY : src/pack/pack.c.o
 
 src/pack/pack.i: src/pack/pack.c.i
@@ -514,6 +564,7 @@ src/pack/pack.i: src/pack/pack.c.i
 # target to preprocess a source file
 src/pack/pack.c.i:
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/distiller_c11.dir/build.make CMakeFiles/distiller_c11.dir/src/pack/pack.c.i
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/eink_c11.dir/build.make CMakeFiles/eink_c11.dir/src/pack/pack.c.i
 .PHONY : src/pack/pack.c.i
 
 src/pack/pack.s: src/pack/pack.c.s
@@ -522,6 +573,7 @@ src/pack/pack.s: src/pack/pack.c.s
 # target to generate assembly for a file
 src/pack/pack.c.s:
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/distiller_c11.dir/build.make CMakeFiles/distiller_c11.dir/src/pack/pack.c.s
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/eink_c11.dir/build.make CMakeFiles/eink_c11.dir/src/pack/pack.c.s
 .PHONY : src/pack/pack.c.s
 
 src/ui/gui/gui.o: src/ui/gui/gui.c.o
@@ -896,6 +948,7 @@ help:
 	@echo "... bench_both"
 	@echo "... bench_eink"
 	@echo "... distiller_c11"
+	@echo "... eink_c11"
 	@echo "... test_ai"
 	@echo "... test_audio"
 	@echo "... test_compose"
@@ -925,6 +978,9 @@ help:
 	@echo "... src/hw/einkdrv/einkdrv.o"
 	@echo "... src/hw/einkdrv/einkdrv.i"
 	@echo "... src/hw/einkdrv/einkdrv.s"
+	@echo "... src/hw/einkdrv/einkdrv_pi.o"
+	@echo "... src/hw/einkdrv/einkdrv_pi.i"
+	@echo "... src/hw/einkdrv/einkdrv_pi.s"
 	@echo "... src/hw/sam/sam.o"
 	@echo "... src/hw/sam/sam.i"
 	@echo "... src/hw/sam/sam.s"

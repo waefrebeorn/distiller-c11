@@ -65,6 +65,14 @@ void eink_free(eink_frame *ctx)
     free(ctx);
 }
 
+void eink_set_dither_mode(eink_frame *ctx, enum eink_dither mode)
+{
+    if (ctx == NULL) {
+        return;
+    }
+    ctx->mode = mode;
+}
+
 size_t eink_packed_size(const eink_frame *ctx)
 {
     return ctx ? pack_size(ctx->pack) : 0;

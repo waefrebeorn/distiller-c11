@@ -11,6 +11,8 @@ file(REMOVE_RECURSE
   "CMakeFiles/distiller_c11.dir/src/hw/audio/audio.c.o.d"
   "CMakeFiles/distiller_c11.dir/src/hw/einkdrv/einkdrv.c.o"
   "CMakeFiles/distiller_c11.dir/src/hw/einkdrv/einkdrv.c.o.d"
+  "CMakeFiles/distiller_c11.dir/src/hw/einkdrv/einkdrv_pi.c.o"
+  "CMakeFiles/distiller_c11.dir/src/hw/einkdrv/einkdrv_pi.c.o.d"
   "CMakeFiles/distiller_c11.dir/src/hw/sam/sam.c.o"
   "CMakeFiles/distiller_c11.dir/src/hw/sam/sam.c.o.d"
   "CMakeFiles/distiller_c11.dir/src/image/image.c.o"

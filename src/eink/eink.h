@@ -31,6 +31,9 @@ enum eink_dither {
     EINK_DITHER_THRESHOLD = 2
 };
 
+/* Choose the dither mode for subsequent renders. */
+void eink_set_dither_mode(eink_frame *ctx, enum eink_dither mode);
+
 /* Render a grayscale frame (HxW uint8) to packed 1-bit bytes.
  * out must hold eink_packed_size(ctx) bytes.
  * Returns bytes written, or -1 on error. */

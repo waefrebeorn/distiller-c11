@@ -1,0 +1,1 @@
+/usr/bin/cc -fPIC -O3 -DNDEBUG -shared -Wl,-soname,libeink_c11.so -o libeink_c11.so CMakeFiles/eink_c11.dir/src/hw/einkdrv/einkdrv_pi.c.o CMakeFiles/eink_c11.dir/src/eink/eink.c.o CMakeFiles/eink_c11.dir/src/dither/dither.c.o CMakeFiles/eink_c11.dir/src/pack/pack.c.o CMakeFiles/eink_c11.dir/src/image/image.c.o 

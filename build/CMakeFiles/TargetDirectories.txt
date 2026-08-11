@@ -1,4 +1,5 @@
 /home/wubu/distiller-c11/build/CMakeFiles/distiller_c11.dir
+/home/wubu/distiller-c11/build/CMakeFiles/eink_c11.dir
 /home/wubu/distiller-c11/build/CMakeFiles/test_dither.dir
 /home/wubu/distiller-c11/build/CMakeFiles/test_pack.dir
 /home/wubu/distiller-c11/build/CMakeFiles/test_image.dir

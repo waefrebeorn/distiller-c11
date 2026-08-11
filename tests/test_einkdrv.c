@@ -94,16 +94,19 @@ int main(void)
     }
     CHECK(has07 && hasA5, "sleep: 0x07 + 0xA5 deep sleep");
 
-    /* fast init: 0x04, 0xE0 0x02, 0xE5 0x5A */
+    /* fast init (partial LUT): 0x04, 0xE0 0x02, 0xE5 0x6E, 0x50 0xD7 */
     seq_len = 0;
     CHECK(einkdrv_init_fast(d) == 0, "fast init ok");
-    int hasE0 = 0, hasE5 = 0, has5A = 0;
+    int hasE0 = 0, hasE5 = 0, has6E = 0, has50 = 0, hasD7 = 0;
     for (int i = 0; i < seq_len; i++) {
         if (seq[i] == 0xE0) hasE0 = 1;
         if (seq[i] == 0xE5) hasE5 = 1;
-        if (seq[i] == 0x5A) has5A = 1;
+        if (seq[i] == 0x6E) has6E = 1;
+        if (seq[i] == 0x50) has50 = 1;
+        if (seq[i] == 0xD7) hasD7 = 1;
     }
-    CHECK(hasE0 && hasE5 && has5A, "fast init: 0xE0/0xE5/0x5A");
+    CHECK(hasE0 && hasE5 && has6E && has50 && hasD7,
+          "fast init: 0xE0/0xE5 0x6E/0x50 0xD7 (partial LUT)");
 
     /* LUT table sanity: 216 bytes, activation phase pattern
      * (alternating VPOS/VNEG visible as 0x01/0x05/0x02/0x03...) */

@@ -1,10 +1,10 @@
-Start testing: Aug 07 22:38 EDT
+Start testing: Aug 11 04:56 EDT
 ----------------------------------------------------------
 1/11 Testing: dither
 1/11 Test: dither
 Command: "/home/wubu/distiller-c11/build/test_dither"
 Directory: /home/wubu/distiller-c11/build
-"dither" start time: Aug 07 22:38 EDT
+"dither" start time: Aug 11 04:56 EDT
 Output:
 ----------------------------------------------------------
 test_dither: ALL PASS
@@ -12,7 +12,7 @@ test_dither: ALL PASS
 Test time =   0.00 sec
 ----------------------------------------------------------
 Test Passed.
-"dither" end time: Aug 07 22:38 EDT
+"dither" end time: Aug 11 04:56 EDT
 "dither" time elapsed: 00:00:00
 ----------------------------------------------------------
 
@@ -20,7 +20,7 @@ Test Passed.
 2/11 Test: pack
 Command: "/home/wubu/distiller-c11/build/test_pack"
 Directory: /home/wubu/distiller-c11/build
-"pack" start time: Aug 07 22:38 EDT
+"pack" start time: Aug 11 04:56 EDT
 Output:
 ----------------------------------------------------------
 test_pack: ALL PASS
@@ -28,7 +28,7 @@ test_pack: ALL PASS
 Test time =   0.00 sec
 ----------------------------------------------------------
 Test Passed.
-"pack" end time: Aug 07 22:38 EDT
+"pack" end time: Aug 11 04:56 EDT
 "pack" time elapsed: 00:00:00
 ----------------------------------------------------------
 
@@ -36,7 +36,7 @@ Test Passed.
 3/11 Test: image
 Command: "/home/wubu/distiller-c11/build/test_image"
 Directory: /home/wubu/distiller-c11/build
-"image" start time: Aug 07 22:38 EDT
+"image" start time: Aug 11 04:56 EDT
 Output:
 ----------------------------------------------------------
 test_image: ALL PASS
@@ -44,7 +44,7 @@ test_image: ALL PASS
 Test time =   0.00 sec
 ----------------------------------------------------------
 Test Passed.
-"image" end time: Aug 07 22:38 EDT
+"image" end time: Aug 11 04:56 EDT
 "image" time elapsed: 00:00:00
 ----------------------------------------------------------
 
@@ -52,7 +52,7 @@ Test Passed.
 4/11 Test: eink
 Command: "/home/wubu/distiller-c11/build/test_eink"
 Directory: /home/wubu/distiller-c11/build
-"eink" start time: Aug 07 22:38 EDT
+"eink" start time: Aug 11 04:56 EDT
 Output:
 ----------------------------------------------------------
 test_eink: ALL PASS
@@ -60,7 +60,7 @@ test_eink: ALL PASS
 Test time =   0.00 sec
 ----------------------------------------------------------
 Test Passed.
-"eink" end time: Aug 07 22:38 EDT
+"eink" end time: Aug 11 04:56 EDT
 "eink" time elapsed: 00:00:00
 ----------------------------------------------------------
 
@@ -68,7 +68,7 @@ Test Passed.
 5/11 Test: compose
 Command: "/home/wubu/distiller-c11/build/test_compose"
 Directory: /home/wubu/distiller-c11/build
-"compose" start time: Aug 07 22:38 EDT
+"compose" start time: Aug 11 04:56 EDT
 Output:
 ----------------------------------------------------------
 test_compose: ALL PASS
@@ -76,7 +76,7 @@ test_compose: ALL PASS
 Test time =   0.00 sec
 ----------------------------------------------------------
 Test Passed.
-"compose" end time: Aug 07 22:38 EDT
+"compose" end time: Aug 11 04:56 EDT
 "compose" time elapsed: 00:00:00
 ----------------------------------------------------------
 
@@ -84,7 +84,7 @@ Test Passed.
 6/11 Test: sam
 Command: "/home/wubu/distiller-c11/build/test_sam"
 Directory: /home/wubu/distiller-c11/build
-"sam" start time: Aug 07 22:38 EDT
+"sam" start time: Aug 11 04:56 EDT
 Output:
 ----------------------------------------------------------
 test_sam: ALL PASS
@@ -92,7 +92,7 @@ test_sam: ALL PASS
 Test time =   0.00 sec
 ----------------------------------------------------------
 Test Passed.
-"sam" end time: Aug 07 22:38 EDT
+"sam" end time: Aug 11 04:56 EDT
 "sam" time elapsed: 00:00:00
 ----------------------------------------------------------
 
@@ -100,7 +100,7 @@ Test Passed.
 7/11 Test: einkdrv
 Command: "/home/wubu/distiller-c11/build/test_einkdrv"
 Directory: /home/wubu/distiller-c11/build
-"einkdrv" start time: Aug 07 22:38 EDT
+"einkdrv" start time: Aug 11 04:56 EDT
 Output:
 ----------------------------------------------------------
 test_einkdrv: ALL PASS
@@ -108,7 +108,7 @@ test_einkdrv: ALL PASS
 Test time =   0.00 sec
 ----------------------------------------------------------
 Test Passed.
-"einkdrv" end time: Aug 07 22:38 EDT
+"einkdrv" end time: Aug 11 04:56 EDT
 "einkdrv" time elapsed: 00:00:00
 ----------------------------------------------------------
 
@@ -116,7 +116,7 @@ Test Passed.
 8/11 Test: audio
 Command: "/home/wubu/distiller-c11/build/test_audio"
 Directory: /home/wubu/distiller-c11/build
-"audio" start time: Aug 07 22:38 EDT
+"audio" start time: Aug 11 04:56 EDT
 Output:
 ----------------------------------------------------------
 note: WM8960 sysfs not present on this machine; control round-trip skipped
@@ -125,7 +125,7 @@ test_audio: ALL PASS
 Test time =   0.00 sec
 ----------------------------------------------------------
 Test Passed.
-"audio" end time: Aug 07 22:38 EDT
+"audio" end time: Aug 11 04:56 EDT
 "audio" time elapsed: 00:00:00
 ----------------------------------------------------------
 
@@ -133,7 +133,7 @@ Test Passed.
 9/11 Test: registry
 Command: "/home/wubu/distiller-c11/build/test_registry"
 Directory: /home/wubu/distiller-c11/build
-"registry" start time: Aug 07 22:38 EDT
+"registry" start time: Aug 11 04:56 EDT
 Output:
 ----------------------------------------------------------
 test_registry: ALL PASS
@@ -141,7 +141,7 @@ test_registry: ALL PASS
 Test time =   0.00 sec
 ----------------------------------------------------------
 Test Passed.
-"registry" end time: Aug 07 22:38 EDT
+"registry" end time: Aug 11 04:56 EDT
 "registry" time elapsed: 00:00:00
 ----------------------------------------------------------
 
@@ -149,7 +149,7 @@ Test Passed.
 10/11 Test: ai
 Command: "/home/wubu/distiller-c11/build/test_ai"
 Directory: /home/wubu/distiller-c11/build
-"ai" start time: Aug 07 22:38 EDT
+"ai" start time: Aug 11 04:56 EDT
 Output:
 ----------------------------------------------------------
 test_ai: ALL PASS
@@ -157,7 +157,7 @@ test_ai: ALL PASS
 Test time =   0.00 sec
 ----------------------------------------------------------
 Test Passed.
-"ai" end time: Aug 07 22:38 EDT
+"ai" end time: Aug 11 04:56 EDT
 "ai" time elapsed: 00:00:00
 ----------------------------------------------------------
 
@@ -165,7 +165,7 @@ Test Passed.
 11/11 Test: gui
 Command: "/home/wubu/distiller-c11/build/test_gui"
 Directory: /home/wubu/distiller-c11/build
-"gui" start time: Aug 07 22:38 EDT
+"gui" start time: Aug 11 04:56 EDT
 Output:
 ----------------------------------------------------------
 test_gui: ALL PASS
@@ -173,8 +173,8 @@ test_gui: ALL PASS
 Test time =   0.00 sec
 ----------------------------------------------------------
 Test Passed.
-"gui" end time: Aug 07 22:38 EDT
+"gui" end time: Aug 11 04:56 EDT
 "gui" time elapsed: 00:00:00
 ----------------------------------------------------------
 
-End testing: Aug 07 22:38 EDT
+End testing: Aug 11 04:56 EDT

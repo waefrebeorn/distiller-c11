@@ -21,12 +21,19 @@ add_library(distiller_c11 STATIC
   src/eink/eink.c
   src/hw/sam/sam.c
   src/hw/einkdrv/einkdrv.c
+  src/hw/einkdrv/einkdrv_pi.c
   src/hw/audio/audio.c
   src/ui/registry/registry.c
   src/ui/gui/gui.c
   src/ai/ai.c
 )
 target_include_directories(distiller_c11 PUBLIC src)
+
+# --- shared lib for the running app (ctypes binding) ---
+add_library(eink_c11 SHARED src/hw/einkdrv/einkdrv_pi.c src/eink/eink.c
+  src/dither/dither.c src/pack/pack.c src/image/image.c)
+target_include_directories(eink_c11 PUBLIC src)
+set_target_properties(eink_c11 PROPERTIES OUTPUT_NAME eink_c11)
 
 # --- tests ---
 enable_testing()

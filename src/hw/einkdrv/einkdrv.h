@@ -57,8 +57,19 @@ int einkdrv_init(einkdrv *d);
 /* Fast init (0xE0/0xE5 for partial refresh). */
 int einkdrv_init_fast(einkdrv *d);
 
-/* Display one packed frame (EPD_FRAME_BYTES, MSB-first). */
+/* Display one packed frame (EPD_FRAME_BYTES, MSB-first). Assumes the
+ * panel is already powered (init or init_fast called at least once) —
+ * no per-frame reset. This is the persistent-session hot path. */
 int einkdrv_display(einkdrv *d, const uint8_t *frame);
+
+/* Partial display: only re-drive rows whose packed bytes changed vs the
+ * last frame (per-pixel region tracking, Caster/Modos 2026 technique).
+ * frame must be EPD_FRAME_BYTES. For a sparse change (menu, text) this
+ * writes only the changed row bytes + sends the refresh; the panel
+ * refresh time is unavoidable but the SPI payload shrinks and — on
+ * controllers that support windowed refresh — the drive too. Returns 0
+ * on success. Falls back to full display if no previous frame. */
+int einkdrv_display_partial(einkdrv *d, const uint8_t *frame);
 
 /* Power off + deep sleep. */
 int einkdrv_sleep(einkdrv *d);

@@ -41,6 +41,7 @@ set(CMAKE_MAKEFILE_PRODUCTS
 # Dependency information for all targets:
 set(CMAKE_DEPEND_INFO_FILES
   "CMakeFiles/distiller_c11.dir/DependInfo.cmake"
+  "CMakeFiles/eink_c11.dir/DependInfo.cmake"
   "CMakeFiles/test_dither.dir/DependInfo.cmake"
   "CMakeFiles/test_pack.dir/DependInfo.cmake"
   "CMakeFiles/test_image.dir/DependInfo.cmake"
