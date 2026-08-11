@@ -250,79 +250,53 @@ int einkdrv_display_partial(einkdrv *d, const uint8_t *frame)
     if (d == NULL || frame == NULL) {
         return -1;
     }
-    /* First frame: no baseline, full display. */
-    if (d->has_frame == 0) {
-        int rc = einkdrv_display(d, frame);
-        d->has_frame = (rc == 0);
-        return rc;
-    }
-    /* Compute dirty rows: any of the 30 packed bytes of a row changed. */
-    int dirty_count = 0;
-    for (int r = 0; r < EPD_HEIGHT; ++r) {
-        const uint8_t *a = frame + (size_t)r * EPD_ROW_BYTES;
-        const uint8_t *b = d->last_frame + (size_t)r * EPD_ROW_BYTES;
-        int changed = 0;
-        for (int c = 0; c < EPD_ROW_BYTES; ++c) {
-            if (a[c] != b[c]) { changed = 1; break; }
-        }
-        d->dirty[r] = changed ? 1 : 0;
-        if (changed) dirty_count++;
-    }
-    /* Nothing changed: no SPI, no refresh. */
-    if (dirty_count == 0) {
-        return 0;
-    }
-    /* Small window optimization: if the change is confined to a few
-     * contiguous rows, still send the full frame (this panel's protocol
-     * is full-frame 0x10/0x13; windowed drive would need a controller
-     * that supports 0x90/0x91 window regs — noted for the fast-refresh
-     * port). The win here is the zero-work no-change path and the
-     * persistent session (no reset). */
-    d->partial_count++;
-    /* Ghosting hygiene (Good Display FAQ + Japanese posts): a partial
-     * refresh leaves residual image on the UC8253; run a real full
-     * refresh every full_interval partials to clear it. Gated by a
-     * min-elapsed-time so RAPID interactive navigation (many partials
-     * per second, e.g. scrolling the menu) never flashes the panel
-     * mid-scroll — the full refresh only fires when both the partial
-     * count is reached AND enough wall-time has passed since the last
-     * full refresh (the menu settles ~0.46s/frame, so a 2s gate means
-     * it won't trip during a fast scroll). */
-    if (d->full_interval > 0 && d->partial_count >= d->full_interval) {
-        long now = now_ms();
-        if (now - d->last_full_ms >= d->full_interval_min_ms) {
-            d->partial_count = 0;
-            d->last_full_ms = now;
-            int rc = einkdrv_display(d, frame);
-            if (rc == 0) d->has_frame = 1;
-            return rc;
-        }
-    }
+    /* Single clean display: 0x10 = the actual last frame shown on the
+     * panel (baseline), 0x13 = the new frame, 0x12 refresh. This matches
+     * the proven-working SDK pic_display exactly. The baseline MUST be
+     * what is truly on the panel — a full-screen ghosting bug came from
+     * "white refresh" that wrote white as both old and new (a no-op that
+     * never cleared) while setting last_frame=white, corrupting every
+     * subsequent baseline. Keep it honest: last_frame is always updated
+     * to exactly what we just wrote to 0x13. */
     int rc = einkdrv_display(d, frame);
     if (rc == 0) d->has_frame = 1;
     return rc;
 }
 
-/* White refresh: drive the whole panel to white (0xFF every byte) and reset
- * the partial baseline. This is the definitive e-ink "clear" that removes
- * residual/ghosting image and un-sticks a stuck-black panel. Research +
- * GxEPD/peterhinch practice: a full white refresh is what actually erases
- * accumulated partial-update ghosting (a partial can't, it only moves the
- * pixels that changed). Call it: (1) on every boot/app-open before the first
- * render, (2) after a navigation transition, (3) on the adaptive cadence.
- * Returns 0 on success. */
+/* White refresh: a GENUINE full clear. Drives old(0x10)=BLACK to new(0x13)=
+ * WHITE, which forces every particle through a real state change and resets
+ * the panel to clean white (this is the "flash" that clears ghosting).
+ * IMPORTANT: it must NOT write white as both old and new — that is a no-op
+ * (drives white->white, never moves particles, never clears) yet still sets
+ * last_frame=white, corrupting every later baseline with a lie about what's
+ * on the panel. After this, last_frame=white is HONEST because the panel
+ * really is white. Call before the first real render (no valid baseline yet)
+ * and whenever a clean slate is needed. Returns 0 on success. */
 int einkdrv_white_refresh(einkdrv *d)
 {
     if (d == NULL) return -1;
-    static uint8_t white[EPD_FRAME_BYTES];
-    memset(white, 0xFF, EPD_FRAME_BYTES);
-    int rc = einkdrv_display(d, white);  /* full display, updates last_frame */
-    if (rc == 0) {
-        d->partial_count = 0;
-        d->has_frame = 1;
-        d->last_full_ms = now_ms();
+    if (write_cmd(d, 0x10) != 0) { /* old = BLACK */
+        return -1;
     }
-    return rc;
+    for (int i = 0; i < EPD_FRAME_BYTES; ++i) {
+        if (write_data(d, 0x00) != 0) return -1;
+    }
+    if (write_cmd(d, 0x13) != 0) { /* new = WHITE */
+        return -1;
+    }
+    for (int i = 0; i < EPD_FRAME_BYTES; ++i) {
+        if (write_data(d, 0xFF) != 0) return -1;
+    }
+    if (write_cmd(d, 0x12) != 0) { /* refresh */
+        return -1;
+    }
+    d->ops.delay_ms(d->ops.user, 1);
+    busy_wait(d);
+    memset(d->last_frame, 0xFF, EPD_FRAME_BYTES);  /* panel is truly white */
+    memset(d->dirty, 0, EPD_HEIGHT);
+    d->has_frame = 1;
+    d->partial_count = 0;
+    return 0;
 }
 
 /* Clear a region (rectangle, 1-bit MSB pack, y=0 top) to white WITHOUT
