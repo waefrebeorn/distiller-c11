@@ -33,6 +33,7 @@ def _load() -> ctypes.CDLL:
         raise RuntimeError("libeink_c11.so not found")
     # driver
     _LIB.einkdrv_pi_open.restype = ctypes.c_int
+    _LIB.einkdrv_pi_close.restype = ctypes.c_int
     _LIB.einkdrv_pi_init_fast.restype = ctypes.c_int
     _LIB.einkdrv_pi_display_partial.argtypes = [ctypes.POINTER(ctypes.c_uint8)]
     _LIB.einkdrv_pi_display_partial.restype = ctypes.c_int
@@ -113,6 +114,30 @@ def update_screen_1bit_c11(self, image, dithering=True):
 
 
 _orig_update_screen_1bit = None
+
+
+def release():
+    """Release the C11 panel session (close gpio/spi) so a child app process
+    can open the panel. Safe when no session exists."""
+    global _session
+    try:
+        if _session is not None:
+            try:
+                _session._lib.einkdrv_pi_close()
+            except Exception:
+                pass
+            _session = None
+    except Exception:
+        _session = None
+
+
+def reopen():
+    """Reopen the C11 panel session after an app hands the panel back."""
+    global _session
+    if _session is None:
+        _session = _C11Session()
+        _session.open()
+    return _session
 
 
 def install():

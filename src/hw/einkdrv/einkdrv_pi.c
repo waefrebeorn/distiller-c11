@@ -173,6 +173,20 @@ int einkdrv_pi_open(void) {
     return 0;
 }
 
+/* einkdrv_pi_close(): release the gpio line handles + spidev so a child
+ * process can open the panel (used during app hand-off). Idempotent. */
+int einkdrv_pi_close(void) {
+    if (g_drv) {
+        einkdrv_free(g_drv);
+        g_drv = NULL;
+    }
+    if (g_transport.gpio.dc_fd > 0) { close(g_transport.gpio.dc_fd); g_transport.gpio.dc_fd = -1; }
+    if (g_transport.gpio.rst_fd > 0) { close(g_transport.gpio.rst_fd); g_transport.gpio.rst_fd = -1; }
+    if (g_transport.gpio.busy_fd > 0) { close(g_transport.gpio.busy_fd); g_transport.gpio.busy_fd = -1; }
+    if (g_transport.spi_fd > 0) { close(g_transport.spi_fd); g_transport.spi_fd = -1; }
+    return 0;
+}
+
 int einkdrv_pi_init(void) { return g_drv ? einkdrv_init(g_drv) : -1; }
 int einkdrv_pi_init_fast(void) { return g_drv ? einkdrv_init_fast(g_drv) : -1; }
 
